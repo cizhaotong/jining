@@ -150,7 +150,7 @@ $c.charts.zhu = function(id, datas, xLabels, colors) {
 	$('#'+ id +' .highcharts-credits').remove();
 }
 /**
- * 柱形图
+ * 横向比例柱形图
  * @params v: 绑定元素 , 必须
  * @params datas: 数据列表 ,例: [{label: '样例一', num: '数量1'}, {label: '样例二', num: '数量2'}, ...], 必须
  * @params style: 样式控制 , 可选
