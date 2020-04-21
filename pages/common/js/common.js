@@ -165,6 +165,7 @@ $c.charts.zhuRow = function(v, datas, style) {
 	datas = datas || [];
 	style = style || {};
 	let maxNum = style.maxNum || 0;
+	$(v).empty();
 	let str = '';
 	if(datas.length){
 		str += '<div class="charts-zhu-row">';
@@ -209,8 +210,11 @@ $c.charts.zhuRow = function(v, datas, style) {
 		}
 		str += '	</table>';
 		str += '</div>';
+		$(v).html(str);
+		let outerH = $(v).height();
+		var zhuH = $(v + ' td').height();
+		if(outerH / datas.length > zhuH) $(v + ' td').css('height', outerH / datas.length);
 	}
-	$(v).html(str);
 	if(maxNum > 0) {
 		setTimeout(function(){
 			$(v + ' .zhu-row i').each(function() {
