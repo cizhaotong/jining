@@ -11,12 +11,14 @@ $c.charts = {};
  * @params style: 样式控制 , 可选
  * @params style.fontColor: 字颜色
  * @params style.fontSize: 字大小
- * @params pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
+ * @params style.pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
+ * @params style.innerSize: 中间圆环百分比,默认0
  * */
 $c.charts.pie = function(v, datas, style) {
     datas = datas || [];
     style = style || {};
     style.pieColors = style.pieColors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
+    style.innerSize = style.innerSize || 0;
     let bodyStr = '';
     let outerW = parseInt($('#' + v).width());
     let outerH = parseInt($('#' + v).height());
@@ -59,6 +61,7 @@ $c.charts.pie = function(v, datas, style) {
         series: [{
             name: '',
             colorByPoint: true,
+            innerSize: style.innerSize,
             data: datas
         }]
     });

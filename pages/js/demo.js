@@ -20,6 +20,36 @@ function pie() {
         y: 15
     }];
     $c.charts.pie('pie1', datas);
+
+    let datas2 = [
+        {
+            name: '个体访',
+            y: 45
+        }, {
+            name: '群体访',
+            y: 10,
+            sliced: true,
+            selected: true
+        }, {
+            name: '超级访',
+            y: 15
+        },{
+            name: '个体访',
+            y: 75
+        }, {
+            name: '群体访',
+            y: 10,
+            sliced: true,
+            selected: true
+        }, {
+            name: '超级访',
+            y: 15
+        }
+    ];
+    let style = {
+        innerSize: '30%'
+    }
+    $c.charts.pie('pie2', datas2, style);
 }
 /**
  * 横向比例柱形图 样例
