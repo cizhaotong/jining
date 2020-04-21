@@ -16,10 +16,7 @@ function zhuRow(){
         label: '测试3',
         num: 2,
     }];
-    let style = {
-        maxNum: 100,
-    };
-    $c.charts.zhuRow('#zhu0', datas, style);
+    $c.charts.zhuRow('#zhu0', datas);
 }
 /**
  * 柱形图 样例
