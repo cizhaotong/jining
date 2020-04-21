@@ -26,7 +26,7 @@ $c.charts.pie = function(v, datas, style) {
             plotShadow: false,
             type: 'pie',
             backgroundColor: 'none',
-            spacing: [10, 10, 10, 10]
+            spacing: [0, 0, 0, 0]
         },
         title: {
             text: ''
@@ -65,7 +65,8 @@ $c.charts.pie = function(v, datas, style) {
             itemHiddenStyle: {
                 color: style.fontColor,
                 opacity: 0.5
-            }
+            },
+            x: -10
         },
         colors: style.pieColors,
         series: [{
