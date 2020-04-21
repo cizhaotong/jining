@@ -44,4 +44,5 @@ function zhuCol(){
     }
     let xLabel2 = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
     $c.charts.zhuCol('#zhu2', datas2, xLabel2, style2);
+    $c.charts.zhu('zhu3', datas2, xLabel2);
 }

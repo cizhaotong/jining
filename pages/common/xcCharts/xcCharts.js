@@ -206,3 +206,60 @@ $c.charts.zhuRow = function(v, datas, style) {
         }
     }
 }
+
+/**
+ * 柱形图 highcharts
+ * @params id: 绑定id , 必须
+ * @params datas: 数据列表,例: [{name: '柱名称', data: [1, 2, 3, ...]}, ...] , 必须
+ * @params xLabels: x轴文字显示列表,例: ['文字1', '文字2', '文字3', ...] , 必须
+ * @params colors: 柱颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
+ * */
+$c.charts.zhu = function(id, datas, xLabels, colors) {
+    datas = datas || [];
+    xLabels = xLabels || [];
+    colors = colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
+    Highcharts.chart(id,{
+        chart: {
+            type: 'column',
+            backgroundColor: 'none'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: xLabels,
+            labels: {
+                style: {
+                    color: '#fff'
+                }
+            },
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            labels: {
+                style: {
+                    color: '#fff'
+                }
+            },
+            gridLineColor: 'rgba(255, 255, 255, 0.3)'
+        },
+        plotOptions: {
+            column: {
+                borderWidth: 0,
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        series: datas,
+        colors: colors
+    });
+    $('#'+ id +' .highcharts-credits').remove();
+}
