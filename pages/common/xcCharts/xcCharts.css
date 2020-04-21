@@ -19,13 +19,13 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-col .right .items{width: 100%;height: 100%;overflow: hidden;}
 .charts-zhu-col .right .items .item{display: block;float: left;height: 100%;position: relative;overflow: hidden;}
 .charts-zhu-col .right .items i{display: block;height: 0;width: 1rem;position: absolute;bottom: 0;left: 50%;margin-left: -0.5rem;border-radius: 0.5rem 0.5rem 0 0;background: linear-gradient(to top, #5EA1E7 , #138BD9);transition: height 0.8s linear;}
-
 .charts-zhu-col .right .bg{position: absolute;width: 100%;height: 100%;z-index: -1;top: 0;left: 0;border-bottom: 1px solid rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.3);}
 .charts-zhu-col .right .bg i{display: block;height: calc(100% / 5);width: 100%;border-top: 1px solid rgba(255, 255, 255, 0);border-color: inherit;}
 .charts-zhu-col .bottom{width: calc(100% - 3em);height: 2em;line-height: 2em;position: absolute;right: 0;bottom: 0;}
 .charts-zhu-col .bottom span{float: left;text-align: center;}
 
-
-
+.charts-pie-left{font-size: 12px;}
+.charts-pie-right{font-size: 12px;}
+.charts-pie-right .item{color: #fff;}
 
 

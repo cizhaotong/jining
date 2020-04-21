@@ -5,6 +5,70 @@ alert();
 var $c = {};
 $c.charts = {};
 /**
+ * 饼形图
+ * @params v: 绑定元素id , 必须
+ * @params datas: 数据列表,例: [{name: '个体访',y: 75}, ...] , 必须
+ * @params colors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
+ * */
+$c.charts.pie = function(v, datas, colors) {
+    datas = datas || [];
+    colors = colors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
+    let bodyStr = '';
+    let outerW = parseInt($('#' + v).width());
+    let outerH = parseInt($('#' + v).height());
+    if(outerW > outerH) {
+        bodyStr += '<div id="'+ v +'_1" class="charts-pie-left" style="float: left;width: '+ outerH +'px;height: '+ outerH +'px;"></div>';
+        bodyStr += '<div id="'+ v +'_2" class="charts-pie-right" style="float: left;width: '+ (outerW - outerH) +'px;height: '+ outerH +'px;""></div>';
+    }else{
+        bodyStr += '<div id="'+ v +'_1" class="charts-pie-left" style="width: '+ outerW +'px;height: '+ outerW +'px;"></div>';
+        bodyStr += '<div id="'+ v +'_2" class="charts-pie-right" style="width: '+ outerW +'px;height: '+ (outerH - outerW) +'px;"></div>';
+    }
+    $('#' + v).html(bodyStr);
+    Highcharts.chart(v + '_1', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            backgroundColor: 'none'
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        colors: colors,
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: datas
+        }]
+    });
+    $('#'+ v +' .highcharts-credits').remove();
+    let _2Str = '';
+    for(let i in datas) {
+        _2Str += '<div class="item">';
+        _2Str += '  <i style="background: '+ colors[i] +';"></i>';
+        _2Str += '  <span>'+ datas[i].name +'：'+ datas[i].y +'</span>';
+        _2Str += '</div>';
+    }
+    $('#'+ v +'_2').html(_2Str);
+}
+/**
  * 竖向柱形图
  * @params v: 绑定元素 , 必须
  * @params datas: 数据列表,例: [{name: '柱名称', data: [1, 2, 3, ...]}, ...] , 必须
@@ -16,6 +80,7 @@ $c.charts = {};
  * @params style.zhuColor: 设置柱颜色,渐变颜色英文标点逗号隔开 ,例:['#5497E3,#1281D1', '#7CD05C,#569A3B', '#FBC94C,#9F823A', '#FC888D,#E36067']
  * */
 $c.charts.zhuCol = function(v, datas, xLabel, style) {
+    if(v && v.indexOf('#') == -1 && v.indexOf('.') == -1) v = '#' + v;
     datas = datas || [];
     xLabel = xLabel || [];
     style = style || {};
@@ -144,6 +209,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
  * @params style.zhuColor: 设置柱颜色,渐变颜色英文标点逗号隔开
  * */
 $c.charts.zhuRow = function(v, datas, style) {
+    if(v && v.indexOf('#') == -1 && v.indexOf('.') == -1) v = '#' + v;
     datas = datas || [];
     style = style || {};
     $(v).empty();
@@ -209,16 +275,16 @@ $c.charts.zhuRow = function(v, datas, style) {
 
 /**
  * 柱形图 highcharts
- * @params id: 绑定id , 必须
+ * @params v: 绑定元素id , 必须
  * @params datas: 数据列表,例: [{name: '柱名称', data: [1, 2, 3, ...]}, ...] , 必须
  * @params xLabels: x轴文字显示列表,例: ['文字1', '文字2', '文字3', ...] , 必须
  * @params colors: 柱颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
  * */
-$c.charts.zhu = function(id, datas, xLabels, colors) {
+$c.charts.zhu = function(v, datas, xLabels, colors) {
     datas = datas || [];
     xLabels = xLabels || [];
     colors = colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
-    Highcharts.chart(id,{
+    Highcharts.chart(v,{
         chart: {
             type: 'column',
             backgroundColor: 'none'
@@ -261,5 +327,5 @@ $c.charts.zhu = function(id, datas, xLabels, colors) {
         series: datas,
         colors: colors
     });
-    $('#'+ id +' .highcharts-credits').remove();
+    $('#'+ v +' .highcharts-credits').remove();
 }
