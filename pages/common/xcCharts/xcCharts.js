@@ -19,6 +19,10 @@ $c.charts.pie = function(v, datas, style) {
     style.pieColors = style.pieColors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
     style.innerSize = style.innerSize || 0;
     style.fontColor = style.fontColor || '#fff';
+    if(datas.length){
+        let bodyH = $('#' + v).height();
+        style.lineHeight = parseInt((bodyH / datas.length - 20) / 2);
+    }
     Highcharts.chart(v, {
         chart: {
             plotBackgroundColor: null,
@@ -54,6 +58,11 @@ $c.charts.pie = function(v, datas, style) {
             symbolWidth: 20,
             symbolPadding: 8,
             labelFormat: '{name}：{y}',
+            itemMarginTop: style.lineHeight,
+            itemMarginBottom: style.lineHeight,
+            navigation: {
+                enabled: false
+            },
             itemStyle: {
                 color: style.fontColor,
                 fontWeight: 'normal',
