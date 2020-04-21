@@ -11,6 +11,7 @@ $c.charts = {};
  * @params style: 样式控制 , 可选
  * @params style.fontColor: 字颜色
  * @params style.fontSize: 字大小
+ * @params style.textAlign: 文字位置,left,center,right
  * @params style.pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
  * @params style.innerSize: 中间圆环百分比,默认0
  * */
@@ -80,6 +81,9 @@ $c.charts.pie = function(v, datas, style) {
         }
         if(style.fontSize){
             fontStyle += 'font-size: '+ style.fontSize +';';
+        }
+        if(style.textAlign){
+            fontStyle += 'text-align: '+ style.textAlign +';';
         }
         for(let i in datas) {
             _2Str += '<div class="c-item" style="'+ fontStyle +'height: '+ aveH +'px;line-height: '+ aveH +'px;">';
