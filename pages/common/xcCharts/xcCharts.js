@@ -10,8 +10,6 @@ $c.charts = {};
  * @params datas: 数据列表,例: [{name: '个体访',y: 75}, ...] , 必须
  * @params style: 样式控制 , 可选
  * @params style.fontColor: 字颜色
- * @params style.fontSize: 字大小
- * @params style.textAlign: 文字位置,left,center,right
  * @params style.pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
  * @params style.innerSize: 中间圆环百分比,默认0
  * */
@@ -20,18 +18,8 @@ $c.charts.pie = function(v, datas, style) {
     style = style || {};
     style.pieColors = style.pieColors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
     style.innerSize = style.innerSize || 0;
-    let bodyStr = '';
-    let outerW = parseInt($('#' + v).width());
-    let outerH = parseInt($('#' + v).height());
-    if(outerW > outerH) {
-        bodyStr += '<div id="'+ v +'_1" class="charts-pie-left" style="float: left;width: '+ outerH +'px;height: '+ outerH +'px;"></div>';
-        bodyStr += '<div id="'+ v +'_2" class="charts-pie-right" style="float: left;width: '+ (outerW - outerH) +'px;height: '+ outerH +'px;""></div>';
-    }else{
-        bodyStr += '<div id="'+ v +'_1" class="charts-pie-left" style="width: '+ outerW +'px;height: '+ outerW +'px;"></div>';
-        bodyStr += '<div id="'+ v +'_2" class="charts-pie-right" style="width: '+ outerW +'px;height: '+ (outerH - outerW) +'px;"></div>';
-    }
-    $('#' + v).html(bodyStr);
-    Highcharts.chart(v + '_1', {
+    style.fontColor = style.fontColor || '#fff';
+    Highcharts.chart(v, {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -57,7 +45,26 @@ $c.charts.pie = function(v, datas, style) {
             }
         },
         legend: {
-            enabled: false
+            align: 'right',
+            verticalAlign: 'middle',
+            layout: 'vertical',
+            squareSymbol: false,
+            symbolHeight: 8,
+            symbolWidth: 20,
+            symbolPadding: 8,
+            labelFormat: '{name}：{y}',
+            itemStyle: {
+                color: style.fontColor,
+                fontWeight: 'normal',
+                opacity: 0.9
+            },
+            itemHoverStyle: {
+                color: style.fontColor,
+            },
+            itemHiddenStyle: {
+                color: style.fontColor,
+                opacity: 0.5
+            }
         },
         colors: style.pieColors,
         series: [{
@@ -68,31 +75,6 @@ $c.charts.pie = function(v, datas, style) {
         }]
     });
     $('#'+ v +' .highcharts-credits').remove();
-    if(datas.length) {
-        let rightH = $('#'+ v +'_2').height();
-        let pieH = $('#'+ v +'_1 .highcharts-plot-background').height();
-        let aveH = pieH / datas.length;
-        let paddingTop = (rightH - pieH) / 2;
-        $('#'+ v +'_2').css('padding-top', paddingTop + 'px');
-        let _2Str = '';
-        let fontStyle = '';
-        if(style.fontColor){
-            fontStyle += 'color: '+ style.fontColor +';';
-        }
-        if(style.fontSize){
-            fontStyle += 'font-size: '+ style.fontSize +';';
-        }
-        if(style.textAlign){
-            fontStyle += 'text-align: '+ style.textAlign +';';
-        }
-        for(let i in datas) {
-            _2Str += '<div class="c-item" style="'+ fontStyle +'height: '+ aveH +'px;line-height: '+ aveH +'px;">';
-            _2Str += '  <i style="background: '+ style.pieColors[i] +';"></i>';
-            _2Str += '  <span>'+ datas[i].name +'：'+ datas[i].y +'</span>';
-            _2Str += '</div>';
-        }
-        $('#'+ v +'_2').html(_2Str);
-    }
 }
 /**
  * 竖向柱形图

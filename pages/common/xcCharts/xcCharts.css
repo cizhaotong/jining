@@ -24,9 +24,5 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-col .c-bottom{width: calc(100% - 3em);height: 2em;line-height: 2em;position: absolute;right: 0;bottom: 0;}
 .charts-zhu-col .c-bottom span{float: left;text-align: center;}
 
-.charts-pie-left{font-size: 12px;}
-.charts-pie-right{font-size: 12px;}
-.charts-pie-right .c-item{color: #fff;text-align: left;}
-.charts-pie-right .c-item i{display: inline-block;width: 20px;height: 8px;border-radius: 4px;margin-right: 8px}
 
 

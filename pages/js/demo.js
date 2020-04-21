@@ -47,8 +47,7 @@ function pie() {
         }
     ];
     let style = {
-        innerSize: '30%',
-        textAlign: 'center'
+        innerSize: '30%'
     }
     $c.charts.pie('pie2', datas2, style);
 }
