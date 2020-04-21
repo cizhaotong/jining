@@ -155,6 +155,8 @@ $c.charts.zhu = function(id, datas, xLabels, colors) {
  * @params datas: 数据列表 ,例: [{label: '样例一', num: '数量1'}, {label: '样例二', num: '数量2'}, ...], 必须
  * @params style: 样式控制 , 可选
  * @params style.maxNum: 设置比例最大值
+ * @params style.fontColor: 字颜色
+ * @params style.fontSize: 字大小
  * @params style.bgColor: 设置背景颜色,渐变颜色英文标点逗号隔开
  * @params style.borderColor: 设置边框颜色
  * @params style.zhuColor: 设置柱颜色,渐变颜色英文标点逗号隔开
@@ -173,6 +175,7 @@ $c.charts.zhuRow = function(v, datas, style) {
 			if(num > maxNum) maxNum = num;
 			let zhuBgStyle = '';
 			let zhuStyle = '';
+			let fontStyle = ''
 			if(style.bgColor){
 				let bgColor = style.bgColor.split(',');
 				if(bgColor.length > 1){
@@ -192,7 +195,13 @@ $c.charts.zhuRow = function(v, datas, style) {
 					zhuStyle += 'background: '+ zhuColor[0] +';';
 				}
 			}
-			str += '	<tr>';
+			if(style.fontColor){
+				fontStyle += 'color: '+ style.fontColor +';';
+			}
+			if(style.fontSize){
+				fontStyle += 'font-size: '+ style.fontSize +';';
+			}
+			str += '	<tr style="'+ fontStyle +'">';
 			str += '		<td><span class="text-more">'+ label +'</span></td>';
 			str += '		<td><b class="zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
 			str += '		<td><span class="text-more">'+ num +'</span></td>';
