@@ -25,7 +25,8 @@ $c.charts.pie = function(v, datas, style) {
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie',
-            backgroundColor: 'none'
+            backgroundColor: 'none',
+            spacing: [10, 10, 10, 10]
         },
         title: {
             text: ''
