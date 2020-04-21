@@ -133,7 +133,8 @@ $c.charts.zhu = function(id, datas, xLabels, colors) {
 				style: {
 					color: '#fff'
 				}
-			}
+			},
+			gridLineColor: 'rgba(255, 255, 255, 0.3)'
 		},
 		plotOptions: {
 			column: {
