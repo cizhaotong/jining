@@ -9,6 +9,8 @@ document.writeln('<script type="text/javascript" src="'+ baseUrl +'/common/js/jq
 document.writeln('<script type="text/javascript" src="'+ baseUrl +'/common/highchats/highcharts.js"></script>');
 document.writeln('<script type="text/javascript" src="'+ baseUrl +'/common/js/store.js"></script>');
 document.writeln('<script type="text/javascript" src="'+ baseUrl +'/common/js/common.js?v='+ v +'"></script>');
+document.writeln('<link type="text/css" rel="stylesheet" media="all" href="'+ baseUrl +'/common/xcCharts/xcCharts.css?v='+ v +'" />');
+document.writeln('<script type="text/javascript" src="'+ baseUrl +'/common/xcCharts/xcCharts.js?v='+ v +'"></script>');
 document.writeln('<script type="text/javascript" src="'+ baseUrl +'/common/json/json.js?v='+ v +'"></script>');
 
 /**
