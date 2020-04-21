@@ -8,11 +8,15 @@ $c.charts = {};
  * 饼形图
  * @params v: 绑定元素id , 必须
  * @params datas: 数据列表,例: [{name: '个体访',y: 75}, ...] , 必须
- * @params colors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
+ * @params style: 样式控制 , 可选
+ * @params style.fontColor: 字颜色
+ * @params style.fontSize: 字大小
+ * @params pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
  * */
-$c.charts.pie = function(v, datas, colors) {
+$c.charts.pie = function(v, datas, style) {
     datas = datas || [];
-    colors = colors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
+    style = style || {};
+    style.pieColors = style.pieColors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
     let bodyStr = '';
     let outerW = parseInt($('#' + v).width());
     let outerH = parseInt($('#' + v).height());
@@ -51,7 +55,7 @@ $c.charts.pie = function(v, datas, colors) {
         legend: {
             enabled: false
         },
-        colors: colors,
+        colors: style.pieColors,
         series: [{
             name: '',
             colorByPoint: true,
@@ -59,14 +63,28 @@ $c.charts.pie = function(v, datas, colors) {
         }]
     });
     $('#'+ v +' .highcharts-credits').remove();
-    let _2Str = '';
-    for(let i in datas) {
-        _2Str += '<div class="item">';
-        _2Str += '  <i style="background: '+ colors[i] +';"></i>';
-        _2Str += '  <span>'+ datas[i].name +'：'+ datas[i].y +'</span>';
-        _2Str += '</div>';
+    if(datas.length) {
+        let rightH = $('#'+ v +'_2').height();
+        let pieH = $('#'+ v +'_1 .highcharts-plot-background').height();
+        let aveH = pieH / datas.length;
+        let paddingTop = (rightH - pieH) / 2;
+        $('#'+ v +'_2').css('padding-top', paddingTop + 'px');
+        let _2Str = '';
+        let fontStyle = '';
+        if(style.fontColor){
+            fontStyle += 'color: '+ style.fontColor +';';
+        }
+        if(style.fontSize){
+            fontStyle += 'font-size: '+ style.fontSize +';';
+        }
+        for(let i in datas) {
+            _2Str += '<div class="item" style="'+ fontStyle +'height: '+ aveH +'px;line-height: '+ aveH +'px;">';
+            _2Str += '  <i style="background: '+ style.pieColors[i] +';"></i>';
+            _2Str += '  <span>'+ datas[i].name +'：'+ datas[i].y +'</span>';
+            _2Str += '</div>';
+        }
+        $('#'+ v +'_2').html(_2Str);
     }
-    $('#'+ v +'_2').html(_2Str);
 }
 /**
  * 竖向柱形图

@@ -27,5 +27,6 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-pie-left{font-size: 12px;}
 .charts-pie-right{font-size: 12px;}
 .charts-pie-right .item{color: #fff;}
+.charts-pie-right .item i{display: inline-block;width: 20px;height: 8px;border-radius: 4px;margin-right: 8px}
 
 
