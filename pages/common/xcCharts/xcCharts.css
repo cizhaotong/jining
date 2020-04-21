@@ -9,24 +9,24 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-row table td{height: 2.4rem;}
 .charts-zhu-row table td:first-child{width: 6em;max-width: 8em;padding: 0 1em;text-align: right;}
 .charts-zhu-row table td:last-child{width: 4em;max-width: 6em;padding: 0 1em;text-align: left;}
-.charts-zhu-row .zhu-row{display: block;width: 100%;height: 1rem;border: 1px solid #01479C;background: #013567;border-radius: 0.5rem;overflow: hidden;}
-.charts-zhu-row .zhu-row i{display: block;height: 100%;width: 0;background: linear-gradient(to right, #024164 , #118CD2);border-radius: inherit;transition: width 0.8s linear;}
+.charts-zhu-row .c-zhu-row{display: block;width: 100%;height: 1rem;border: 1px solid #01479C;background: #013567;border-radius: 0.5rem;overflow: hidden;}
+.charts-zhu-row .c-zhu-row i{display: block;height: 100%;width: 0;background: linear-gradient(to right, #024164 , #118CD2);border-radius: inherit;transition: width 0.8s linear;}
 
 .charts-zhu-col{width: 100%;height: 100%;padding: 0 0 2em 3em;position: relative;color: #fff;font-size: 12px;}
-.charts-zhu-col .left{position: absolute;left: 0;width: 2.6em;height: calc(100% - 2em);top: 0;text-align: right;}
-.charts-zhu-col .left i{height: calc(100% / 5);width: 100%;font-style: normal;position: relative;top: -0.6em;}
-.charts-zhu-col .right{width: 100%;height: 100%;position: relative;z-index: 3;}
-.charts-zhu-col .right .items{width: 100%;height: 100%;overflow: hidden;}
-.charts-zhu-col .right .items .item{display: block;float: left;height: 100%;position: relative;overflow: hidden;}
-.charts-zhu-col .right .items i{display: block;height: 0;width: 1rem;position: absolute;bottom: 0;left: 50%;margin-left: -0.5rem;border-radius: 0.5rem 0.5rem 0 0;background: linear-gradient(to top, #5EA1E7 , #138BD9);transition: height 0.8s linear;}
-.charts-zhu-col .right .bg{position: absolute;width: 100%;height: 100%;z-index: -1;top: 0;left: 0;border-bottom: 1px solid rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.3);}
-.charts-zhu-col .right .bg i{display: block;height: calc(100% / 5);width: 100%;border-top: 1px solid rgba(255, 255, 255, 0);border-color: inherit;}
-.charts-zhu-col .bottom{width: calc(100% - 3em);height: 2em;line-height: 2em;position: absolute;right: 0;bottom: 0;}
-.charts-zhu-col .bottom span{float: left;text-align: center;}
+.charts-zhu-col .c-left{position: absolute;left: 0;width: 2.6em;height: calc(100% - 2em);top: 0;text-align: right;}
+.charts-zhu-col .c-left i{height: calc(100% / 5);width: 100%;font-style: normal;position: relative;top: -0.6em;}
+.charts-zhu-col .c-right{width: 100%;height: 100%;position: relative;z-index: 3;}
+.charts-zhu-col .c-right .c-items{width: 100%;height: 100%;overflow: hidden;}
+.charts-zhu-col .c-right .c-items .c-item{display: block;float: left;height: 100%;position: relative;overflow: hidden;}
+.charts-zhu-col .c-right .c-items i{display: block;height: 0;width: 1rem;position: absolute;bottom: 0;left: 50%;margin-left: -0.5rem;border-radius: 0.5rem 0.5rem 0 0;background: linear-gradient(to top, #5EA1E7 , #138BD9);transition: height 0.8s linear;}
+.charts-zhu-col .c-right .c-bg{position: absolute;width: 100%;height: 100%;z-index: -1;top: 0;left: 0;border-bottom: 1px solid rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.3);}
+.charts-zhu-col .c-right .c-bg i{display: block;height: calc(100% / 5);width: 100%;border-top: 1px solid rgba(255, 255, 255, 0);border-color: inherit;}
+.charts-zhu-col .c-bottom{width: calc(100% - 3em);height: 2em;line-height: 2em;position: absolute;right: 0;bottom: 0;}
+.charts-zhu-col .c-bottom span{float: left;text-align: center;}
 
 .charts-pie-left{font-size: 12px;}
 .charts-pie-right{font-size: 12px;}
-.charts-pie-right .item{color: #fff;}
-.charts-pie-right .item i{display: inline-block;width: 20px;height: 8px;border-radius: 4px;margin-right: 8px}
+.charts-pie-right .c-item{color: #fff;}
+.charts-pie-right .c-item i{display: inline-block;width: 20px;height: 8px;border-radius: 4px;margin-right: 8px}
 
 

@@ -46,6 +46,7 @@ $c.charts.pie = function(v, datas, style) {
         },
         plotOptions: {
             pie: {
+                borderWidth: 0,
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
@@ -81,7 +82,7 @@ $c.charts.pie = function(v, datas, style) {
             fontStyle += 'font-size: '+ style.fontSize +';';
         }
         for(let i in datas) {
-            _2Str += '<div class="item" style="'+ fontStyle +'height: '+ aveH +'px;line-height: '+ aveH +'px;">';
+            _2Str += '<div class="c-item" style="'+ fontStyle +'height: '+ aveH +'px;line-height: '+ aveH +'px;">';
             _2Str += '  <i style="background: '+ style.pieColors[i] +';"></i>';
             _2Str += '  <span>'+ datas[i].name +'：'+ datas[i].y +'</span>';
             _2Str += '</div>';
@@ -127,7 +128,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
         }
 
         let leftStr = '';
-        leftStr += '<div class="left">';
+        leftStr += '<div class="c-left">';
         let leftLen = 5;
         let leftAveNum = parseInt(maxNum / leftLen);
         let maxNumNew = maxNum;
@@ -140,14 +141,14 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
         str += leftStr;
 
         let rightStr = '';
-        rightStr += '<div class="right">';
-        rightStr += '   <div class="items">';
+        rightStr += '<div class="c-right">';
+        rightStr += '   <div class="c-items">';
         let rightLen = xLabel.length || 0;
         for(let i in datas) {
             if(datas[i].data && datas[i].data.length > rightLen) rightLen = datas[i].data.length;
         }
         for(let i = 0 ; i < rightLen ; i ++) {
-            rightStr += '<div class="item">';
+            rightStr += '<div class="c-item">';
             for(let j in datas){
                 let zhuStyle = '';
                 if(style.zhuColor){
@@ -158,18 +159,18 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                         zhuStyle += 'background: '+ zhuColor[0] +';';
                     }
                 }
-                if(datas[j].data && datas[j].data[i]) rightStr += '<i class="col-'+ j +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
+                if(datas[j].data && datas[j].data[i]) rightStr += '<i class="c-col-'+ j +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
             }
             rightStr += '</div>';
         }
         rightStr += '   </div>';
-        rightStr += '   <div class="bg"><i></i><i></i><i></i><i></i><i></i></div>';
+        rightStr += '   <div class="c-bg"><i></i><i></i><i></i><i></i><i></i></div>';
         rightStr += '</div>';
         str += rightStr;
 
         if(xLabel.length) {
             let bottomStr = '';
-            bottomStr += '<div class="bottom">';
+            bottomStr += '<div class="c-bottom">';
             for(let i in xLabel) {
                 bottomStr += '<span class="text-more">'+ xLabel[i] +'</span>';
             }
@@ -184,13 +185,13 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
         if(xLabel.length){
             let bootomLen = xLabel.length;
             let bootomAveW = parseInt(outerW / bootomLen);
-            $(v +' .charts-zhu-col .bottom span').each(function(){
+            $(v +' .charts-zhu-col .c-bottom span').each(function(){
                 $(this).css('width', bootomAveW);
             });
         }
         if(rightLen > 0) {
             let rightAveW = parseInt(outerW / rightLen);
-            $(v +' .charts-zhu-col .right .item').each(function(){
+            $(v +' .charts-zhu-col .c-right .c-item').each(function(){
                 $(this).css('width', rightAveW);
                 let iLen = $(this).children('i').length;
                 if(iLen) {
@@ -207,7 +208,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
             });
 
             setTimeout(function(){
-                $(v +' .charts-zhu-col .right .item i').each(function() {
+                $(v +' .charts-zhu-col .c-right .c-item i').each(function() {
                     let height = parseInt($(this).attr('value')) / maxNum * 100;
                     $(this).css('height', height + '%');
                 });
@@ -273,7 +274,7 @@ $c.charts.zhuRow = function(v, datas, style) {
             }
             str += '	<tr style="'+ fontStyle +'">';
             str += '		<td><span class="text-more">'+ label +'</span></td>';
-            str += '		<td><b class="zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
+            str += '		<td><b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
             str += '		<td><span class="text-more">'+ num +'</span></td>';
             str += '	</tr>';
         }
@@ -285,7 +286,7 @@ $c.charts.zhuRow = function(v, datas, style) {
         if(outerH / datas.length > zhuH) $(v + ' td').css('height', parseInt(outerH / datas.length));
         if(maxNum > 0) {
             setTimeout(function(){
-                $(v + ' .zhu-row i').each(function() {
+                $(v + ' .c-zhu-row i').each(function() {
                     let width = parseInt($(this).attr('value')) / maxNum * 100;
                     $(this).css('width', width + '%');
                 });
