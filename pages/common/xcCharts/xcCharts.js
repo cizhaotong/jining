@@ -4,7 +4,7 @@
 var $c = {};
 $c.charts = {};
 /**
- * 圆环进度条
+ * 地图
  * @params v: 绑定元素id , 必须
  * */
 $c.charts.map = function(v) {
