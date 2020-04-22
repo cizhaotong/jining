@@ -31,7 +31,7 @@ function zhuRow(){
         label: '测试1',
         num: 10,
     },{
-        label: '测试2测试2测试2测试2测试2测试2测试2测试2测试2',
+        label: '测试2',
         num: 30,
     },{
         label: '测试3',
