@@ -324,12 +324,17 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                         zhuStyle += 'background: '+ zhuColor[0] +';';
                     }
                 }
-                if(datas[j].data && datas[j].data[i]) rightStr += '<i class="c-col-'+ j +'" col="c-col-'+ j +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
+                if(datas[j].data && datas[j].data[i]) rightStr += '<i class="c-col-'+ j +'" col="c-col-'+ j +'" clabel="'+ datas[j].name +'" cnum="'+ datas[j].data[i] +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
             }
             rightStr += '</div>';
         }
         rightStr += '   </div>';
         rightStr += '   <div class="c-bg"><i></i><i></i><i></i><i></i><i></i></div>';
+        rightStr += '   <div class="c-tip">';
+        rightStr += '       <div class="c-tip-til"></div>';
+        rightStr += '       <div class="c-tip-con">';
+        rightStr += '       </div>';
+        rightStr += '   </div>';
         rightStr += '</div>';
         str += rightStr;
 
@@ -377,10 +382,50 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                     $(this).css('height', height + '%');
                 });
             },100);
+            let hideTime;
+            $(v +' .charts-zhu-col .c-right .c-item').hover(function(e){
+                let index = $(this).index();
+                if(xLabel.length && xLabel[index]) $(v +' .charts-zhu-col .c-right .c-tip .c-tip-til').html(xLabel[index]);
+                let str = '';
+                $(this).children('i').each(function(i){
+                    str += '<div class="c-tip-text-row"><b style="background: '+ style.zhuColor[i].split(',')[0] +';"></b>'+ $(this).attr("clabel") +'：'+ $(this).attr("cnum") +'</div>';
+                });
+                $(v +' .charts-zhu-col .c-right .c-tip .c-tip-con').html(str);
+                $(v +' .charts-zhu-col .c-right .c-tip').addClass('on').addClass('show');
+                clearTimeout(hideTime);
+                let parentOpTop = $(this).parent().offset().top;
+                let firstOpTop = $(this).children('i').first().offset().top;
+                let lastOpTop = $(this).children('i').last().offset().top;
+                let tipH = $(v +' .charts-zhu-col .c-right .c-tip').outerHeight();
+                let opTop = firstOpTop - parentOpTop - tipH / 2;
+
+                let parentOpLeft = $(this).parent().offset().left;
+                let firstOpLeft = $(this).children('i').first().offset().left;
+                let lastOpLeft = $(this).children('i').last().offset().left;
+                let lastW = $(this).children('i').last().width();
+                let tipW = $(v +' .charts-zhu-col .c-right .c-tip').outerWidth();
+                let opLeft = firstOpLeft - parentOpLeft - tipW;
+                if(opLeft < 0) {
+                    opLeft = lastOpLeft - parentOpLeft + lastW;
+                    opTop = lastOpTop - parentOpTop - tipH / 2;
+                }
+                $(v +' .charts-zhu-col .c-right .c-tip').css({
+                    left: opLeft,
+                    top: opTop,
+                    'border-color': style.zhuColor[0].split(',')[0]
+                });
+            },function(){
+                $(v +' .charts-zhu-col .c-right .c-tip').removeClass('on');
+                hideTime = setTimeout(function(){
+                    if(!$(v +' .charts-zhu-col .c-right .c-tip').hasClass('on')) {
+                        $(v +' .charts-zhu-col .c-right .c-tip').removeClass('show');
+                        $(v +' .charts-zhu-col .c-right .c-tip .c-tip-til').empty();
+                        $(v +' .charts-zhu-col .c-right .c-tip .c-tip-con').empty();
+                    }
+                }, 400);
+            });
         }
-
     }
-
 }
 /**
  * 横向比例柱形图

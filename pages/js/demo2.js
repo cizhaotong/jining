@@ -54,10 +54,10 @@ function zhuCol(){
     $c.charts.zhuCol('zhu1', datas, xLabel);
 
     let datas2 = [{
-        name: '样例一',
+        name: '样例二',
         data: [100,200,333,156,678,589, 100,200,550,233,678,685]
     },{
-        name: '样例一',
+        name: '样例三',
         data: [678,685,156,678, 876,200,200,550,145, 333,589, 100]
     }];
     let style2 = {
