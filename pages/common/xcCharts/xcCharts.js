@@ -324,7 +324,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                         zhuStyle += 'background: '+ zhuColor[0] +';';
                     }
                 }
-                if(datas[j].data && datas[j].data[i]) rightStr += '<i class="c-col-'+ j +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
+                if(datas[j].data && datas[j].data[i]) rightStr += '<i class="c-col-'+ j +'" col="c-col-'+ j +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
             }
             rightStr += '</div>';
         }
@@ -371,13 +371,22 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                     }
                 }
             });
-
             setTimeout(function(){
                 $(v +' .charts-zhu-col .c-right .c-item i').each(function() {
                     let height = parseInt($(this).attr('value')) / maxNum * 100;
                     $(this).css('height', height + '%');
                 });
             },100);
+            $(v +' .charts-zhu-col .c-right .c-item i').hover(function(){
+                $(this).parent().addClass('hover');
+                let hoverItem = $(this).attr('col');
+                $(v +' .charts-zhu-col .c-right .c-item i').each(function(){
+                    if($(this).attr('col') != hoverItem) $(this).addClass('unHover');
+                });
+            },function(){
+                $(this).parent().removeClass('hover');
+                $(v +' .charts-zhu-col .c-right .c-item i').removeClass('unHover');
+            });
         }
 
     }
