@@ -377,16 +377,6 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                     $(this).css('height', height + '%');
                 });
             },100);
-            $(v +' .charts-zhu-col .c-right .c-item i').hover(function(){
-                $(this).parent().addClass('hover');
-                let hoverItem = $(this).attr('col');
-                $(v +' .charts-zhu-col .c-right .c-item i').each(function(){
-                    if($(this).attr('col') != hoverItem) $(this).addClass('unHover');
-                });
-            },function(){
-                $(this).parent().removeClass('hover');
-                $(v +' .charts-zhu-col .c-right .c-item i').removeClass('unHover');
-            });
         }
 
     }
@@ -490,6 +480,9 @@ $c.charts.zhu = function(v, datas, xLabels, colors) {
         },
         subtitle: {
             text: ''
+        },
+        tooltip: {
+            shared: true
         },
         xAxis: {
             categories: xLabels,
