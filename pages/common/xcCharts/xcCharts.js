@@ -6,6 +6,76 @@ $c.charts = {};
 /**
  * 圆环进度条
  * @params v: 绑定元素id , 必须
+ * */
+$c.charts.map = function(v) {
+    let mapSize = [638, 477];
+    let outerW = $('#' + v).width();
+    let outerH = $('#' + v).height();
+
+    let mapW = outerW;
+    let mapH = outerW / mapSize[0] * mapSize[1];
+    if(mapH > outerH) mapH = outerH;
+    let mapTop = 0;
+    if(outerH > mapH) mapTop = (outerH - mapH) / 2;
+
+    let peX = mapW / mapSize[0];
+    let peY = mapH / mapSize[1];
+
+    let mapPoints = [{
+        name: '小孟镇',
+        point: [150, 56]
+    },{
+        name: '新驿镇',
+        point: [138, 148]
+    },{
+        name: '漕河镇',
+        point: [280, 68]
+    },{
+        name: '颜店镇',
+        point: [230, 256]
+    },{
+        name: '兖州镇',
+        point: [322, 216]
+    },{
+        name: '大安镇',
+        point: [350, 120]
+    },{
+        name: '龙桥镇',
+        point: [402, 282]
+    },{
+        name: '鼓楼街道',
+        point: [450, 262]
+    },{
+        name: '酒仙桥街道',
+        point: [496, 230]
+    },{
+        name: '兴隆庄街道',
+        point: [530, 310]
+    }];
+    let mapStr = '';
+    mapStr += '<div class="charts-map" style="width: '+ mapW +'px;height: '+ mapH +'px;top: '+ mapTop +'px;">';
+    mapStr += ' <img class="c-map-bg" src="./common/img/map/map_bg.png" />';
+    mapStr += ' <div class="c-map-points">';
+    for(let i in mapPoints){
+        let pointX = mapPoints[i].point[0] * peX;
+        let pointY = mapPoints[i].point[1] * peY;
+        mapStr += '     <div class="c-map-point" style="left: '+ pointX +'px;top: '+ pointY +'px;">';
+        mapStr += '         <i></i><span>'+ mapPoints[i].name +'</span>';
+        mapStr += '     </div>';
+    }
+    mapStr += ' </div>';
+    mapStr += '</div>';
+
+
+    mapStr += '';
+    $('#' + v).html(mapStr);
+    $('#' + v + ' .charts-map').hover(function(e){
+        console.log(e);
+    });
+}
+/**
+ * 圆环进度条
+ * @params v: 绑定元素id , 必须
  * @params value: 圆环的百分比值, 范围0-100 , 必须
  * @params style: 圆环样式控制 , 可选
  * @params style.size: 圆环大小,圆环直径,默认容器宽、高小的值

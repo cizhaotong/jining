@@ -3,7 +3,14 @@ $(function(){
     zhuCol();
     pie();
     circle();
+    map();
 });
+/**
+ * 地图
+ */
+function map(){
+    $c.charts.map('map');
+}
 /**
  * 圆环进度条
  */

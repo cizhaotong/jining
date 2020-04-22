@@ -24,5 +24,13 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-col .c-bottom{width: calc(100% - 3em);height: 2em;line-height: 2em;position: absolute;right: 0;bottom: 0;}
 .charts-zhu-col .c-bottom span{float: left;text-align: center;}
 
-
-
+.charts-map{width: 100%;height: 100%;position: relative;z-index: 2;color: #fff;}
+.charts-map .c-map-bg{display: block;width: 100%;max-height: 100%;position: absolute;left: 0;top: 0;}
+.charts-map .c-map-points{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 6;}
+.charts-map .c-map-points .c-map-point{position: absolute;height: 22px;line-height: 22px;word-break: keep-all;white-space: nowrap;}
+.charts-map .c-map-points .c-map-point i{display: block;float: left;width: 8px;height: 8px;background: #FD6969;border-radius: 50%;position: relative;z-index: 2;float: left;margin: 7px 10px 0 0;}
+.charts-map .c-map-points .c-map-point i:after{content: '';position: absolute;left: 0;top: 0;width: 100%;height: 100%;border-radius: 50%;z-index: -1;background: #FD6969;opacity: 0.6;animation: mapPointShan 2s infinite ease-out;}
+@keyframes mapPointShan{
+    0%{transform: scale(1);opacity: 0.6;}
+    100%{transform: scale(4);opacity: 0;}
+}
