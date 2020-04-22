@@ -65,7 +65,7 @@ $c.charts.areaSpline = function(v, datas, xLabels, colors) {
  * @params v: 绑定元素id , 必须
  * */
 $c.charts.map = function(v) {
-    let mapSize = [638, 477];
+    let mapSize = [617, 565];
     let outerW = $('#' + v).width();
     let outerH = $('#' + v).height();
 
@@ -80,34 +80,44 @@ $c.charts.map = function(v) {
 
     let mapPoints = [{
         name: '小孟镇',
-        point: [150, 56]
+        point: [156, 52],
+        high: './common/img/map/map_high_1.png'
     },{
         name: '新驿镇',
-        point: [138, 148]
+        point: [138, 148],
+        high: './common/img/map/map_high_2.png'
     },{
         name: '漕河镇',
-        point: [280, 68]
+        point: [310, 80],
+        high: './common/img/map/map_high_3.png'
     },{
         name: '颜店镇',
-        point: [230, 256]
+        point: [122, 280],
+        high: './common/img/map/map_high_4.png'
     },{
-        name: '兖州镇',
-        point: [322, 216]
+        name: '新兖镇',
+        point: [280, 220],
+        high: './common/img/map/map_high_5.png'
     },{
         name: '大安镇',
-        point: [350, 120]
+        point: [420, 120],
+        high: './common/img/map/map_high_6.png'
     },{
-        name: '龙桥镇',
-        point: [402, 282]
+        name: '龙桥街道',
+        point: [350, 278],
+        high: './common/img/map/map_high_7.png'
     },{
         name: '鼓楼街道',
-        point: [450, 262]
+        point: [450, 260],
+        high: './common/img/map/map_high_8.png'
     },{
         name: '酒仙桥街道',
-        point: [496, 230]
+        point: [502, 230],
+        high: './common/img/map/map_high_9.png'
     },{
         name: '兴隆庄街道',
-        point: [530, 310]
+        point: [480, 410],
+        high: './common/img/map/map_high_10.png'
     }];
     let mapStr = '';
     mapStr += '<div class="charts-map" style="width: '+ mapW +'px;height: '+ mapH +'px;top: '+ mapTop +'px;">';
@@ -121,11 +131,15 @@ $c.charts.map = function(v) {
         mapStr += '     </div>';
     }
     mapStr += ' </div>';
+    mapStr += ' <img class="c-map-high" />';
     mapStr += '</div>';
-
-
-    mapStr += '';
     $('#' + v).html(mapStr).children('.charts-map').addClass('show');
+    $('#' + v + ' .charts-map .c-map-points .c-map-point').hover(function(){
+        let index = $(this).index();
+        $('#' + v + ' .charts-map .c-map-high').attr('src', mapPoints[index].high).addClass('show');
+    },function(){
+        $('#' + v + ' .charts-map .c-map-high').removeAttr('src').removeClass('show');
+    });
 }
 /**
  * 圆环进度条
