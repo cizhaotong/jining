@@ -127,15 +127,15 @@ $c.charts.map = function(v) {
         let pointX = mapPoints[i].point[0] * peX;
         let pointY = mapPoints[i].point[1] * peY;
         mapStr += '     <div class="c-map-point" style="left: '+ pointX +'px;top: '+ pointY +'px;">';
-        mapStr += '         <i></i><span>'+ mapPoints[i].name +'</span>';
+        mapStr += '         <i index="'+ i +'"></i><span>'+ mapPoints[i].name +'</span>';
         mapStr += '     </div>';
     }
     mapStr += ' </div>';
     mapStr += ' <img class="c-map-high" />';
     mapStr += '</div>';
     $('#' + v).html(mapStr).children('.charts-map').addClass('show');
-    $('#' + v + ' .charts-map .c-map-points .c-map-point').hover(function(){
-        let index = $(this).index();
+    $('#' + v + ' .charts-map .c-map-points .c-map-point i').hover(function(){
+        let index = $(this).attr('index');
         $('#' + v + ' .charts-map .c-map-high').attr('src', mapPoints[index].high).addClass('show');
     },function(){
         $('#' + v + ' .charts-map .c-map-high').removeAttr('src').removeClass('show');
