@@ -11,7 +11,7 @@ $c.charts = {};
  * @params style.size: 圆环大小,圆环直径,默认容器宽、高小的值
  * @params style.fontColor: 圆环加载条宽度, 范围0-1, 默认0.2
  * @params style.speed: 圆环加载速度,毫秒, 默认 1000
- * @params style.color: 圆环进度条颜色, 默认 #7F77E6, ( 提供了6 种系统颜色, 值: '_0' 到 '_5' )
+ * @params style.color: 圆环进度条颜色, 默认 #118BD4, ( 提供了6 种系统颜色, 值: '_0' 到 '_5' )
  * @params style.bgColor: 圆环背景颜色, 默认 #013567
  * @params style.text: 圆环内部是否显示比例文字, 默认true
  * @params style.fontColor: 圆环内部文字颜色, 默认 #fff
