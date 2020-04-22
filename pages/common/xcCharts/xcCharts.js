@@ -4,6 +4,63 @@
 var $c = {};
 $c.charts = {};
 /**
+ * 面积曲线图
+ * @params v: 绑定元素id , 必须
+ * @params datas: 数据列表,例: [{name: '名称', data: [1, 2, 3, ...]}, ...] , 必须
+ * @params xLabels: x轴文字显示列表,例: ['文字1', '文字2', '文字3', ...] , 必须
+ * @params colors: 柱颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
+ * */
+$c.charts.areaSpline = function(v, datas, xLabels, colors) {
+    datas = datas || [];
+    xLabels = xLabels || [];
+    colors = colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
+    Highcharts.chart(v,{
+        chart: {
+            type: 'areaspline',
+            backgroundColor: 'none'
+        },
+        title: {
+            text: ''
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+            categories: xLabels,
+            labels: {
+                style: {
+                    color: '#fff'
+                }
+            },
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            labels: {
+                style: {
+                    color: '#fff'
+                }
+            },
+            gridLineColor: 'rgba(255, 255, 255, 0.3)'
+        },
+        tooltip: {
+            shared: true
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        colors: colors,
+        series: datas
+    });
+    $('#'+ v +' .highcharts-credits').remove();
+}
+/**
  * 地图
  * @params v: 绑定元素id , 必须
  * */
@@ -68,10 +125,7 @@ $c.charts.map = function(v) {
 
 
     mapStr += '';
-    $('#' + v).html(mapStr);
-    $('#' + v + ' .charts-map').hover(function(e){
-        console.log(e);
-    });
+    $('#' + v).html(mapStr).children('.charts-map').addClass('show');
 }
 /**
  * 圆环进度条
