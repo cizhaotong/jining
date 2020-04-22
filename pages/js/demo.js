@@ -2,7 +2,21 @@ $(function(){
     zhuRow();
     zhuCol();
     pie();
+    circle();
 });
+/**
+ * 圆环进度条
+ */
+function circle() {
+    let style = {
+        color: '_1'
+    }
+    $c.charts.ringSpeed('circle', 60, style);
+    let style2 = {
+        color: '_2'
+    }
+    $c.charts.ringSpeed('circle2', 30, style2);
+}
 /**
  * 饼形图
  */

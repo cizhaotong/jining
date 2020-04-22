@@ -1,9 +1,53 @@
 /**
  * @action charts自定义封装
  */
-alert();
 var $c = {};
 $c.charts = {};
+/**
+ * 圆环进度条
+ * @params v: 绑定元素id , 必须
+ * @params value: 圆环的百分比值, 范围0-100 , 必须
+ * @params style: 圆环样式控制 , 可选
+ * @params style.size: 圆环大小,圆环直径,默认容器宽、高小的值
+ * @params style.fontColor: 圆环加载条宽度, 范围0-1, 默认0.2
+ * @params style.speed: 圆环加载速度,毫秒, 默认 1000
+ * @params style.color: 圆环进度条颜色, 默认 #118BD4, ( 提供了6 种系统颜色, 值: '_0' 到 '_5' )
+ * @params style.bgColor: 圆环背景颜色, 默认 #013567
+ * @params style.text: 圆环内部是否显示比例文字, 默认true
+ * @params style.fontColor: 圆环内部文字颜色, 默认 #fff
+ * */
+$c.charts.ringSpeed = function(v, value, style) {
+    value = value || 0;
+    style = style || {};
+    style.colors = ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
+    style.size = style.size || 0;
+    let outerW = $("#" + v).width();
+    let outerH = $("#" + v).height();
+    let defaultSize = outerW;
+    if(outerH < outerW) defaultSize = outerH;
+    if(!style.size || style.size > defaultSize) style.size = defaultSize;
+    style.speed = style.speed || 1000;
+    style.color = style.color || '#118BD4';
+    let colorNew = style.color.split('_');
+    if(colorNew.length > 1 && style.colors.length > colorNew[1]) style.color = style.colors[colorNew[1]];
+    style.bgColor = style.bgColor || '#013567';
+    style.text = style.text || true;
+    style.fontColor = style.fontColor || '#fff';
+    style.width = style.width || 0.2;
+    $("#" + v).css('color', style.fontColor);
+    $("#" + v).circleChart({
+        value: value,
+        size: style.size,
+        speed: style.speed,
+        color: style.color,
+        backgroundColor: style.bgColor,
+        text: true,
+        widthRatio: style.width,
+        onDraw: function(el, circle) {
+            circle.text(Math.round(circle.value) + '%');
+        }
+    });
+}
 /**
  * 饼形图
  * @params v: 绑定元素id , 必须
