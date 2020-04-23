@@ -8,7 +8,7 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-row table{min-width: 100%;}
 .charts-zhu-row table td{height: 2.4rem;}
 .charts-zhu-row table td:first-child{width: 6em;max-width: 12em;padding: 0 1em;text-align: right;}
-.charts-zhu-row table td:last-child{width: 4em;max-width: 6em;padding: 0 1em;text-align: left;}
+.charts-zhu-row table td:last-child{width: 4em;max-width: 10em;padding: 0 1em;text-align: left;}
 .charts-zhu-row .c-zhu-row{display: block;width: 100%;height: 1rem;border: 1px solid #01479C;background: #013567;border-radius: 0.5rem;overflow: hidden;}
 .charts-zhu-row .c-zhu-row i{display: block;height: 100%;width: 0;background: linear-gradient(to right, #024164 , #118CD2);border-radius: inherit;transition: width 0.8s linear;}
 .charts-zhu-row .c-zhu-row-top{line-height: 2.2;padding: 0 0.5rem;}
