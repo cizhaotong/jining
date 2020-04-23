@@ -160,8 +160,10 @@ $c.charts.map = function(v, datas) {
     for(let i in mapPoints){
         let pointX = mapPoints[i].point[0] * peX;
         let pointY = mapPoints[i].point[1] * peY;
+        let warn = '';
+        if(mapPoints[i].event) warn = 'warn'
         mapStr += '     <div class="c-map-point" style="left: '+ pointX +'px;top: '+ pointY +'px;">';
-        mapStr += '         <i value="'+ mapPoints[i].id +'"></i><span>'+ mapPoints[i].name +'</span>';
+        mapStr += '         <i class="'+ warn +'" value="'+ mapPoints[i].id +'"></i><span>'+ mapPoints[i].name +'</span>';
         mapStr += '     </div>';
     }
     mapStr += ' </div>';

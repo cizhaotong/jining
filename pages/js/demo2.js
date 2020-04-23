@@ -14,6 +14,12 @@ function map(){
             label: '多久啊斯柯达哈哈',
             desc: '的卡死了电卡还是口袋里哈刘德华打蜡卡仕达'
         }
+    },{
+        id: 1006,
+        event: {
+            label: '啊打算大多',
+            desc: '特人非常V型'
+        }
     }];
     $c.charts.map('map', datas);
 }
