@@ -375,6 +375,7 @@ $c.charts.pie = function(v, datas, style) {
  * @params xLabel: x轴文字 , 必须 , 例; ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
  * @params style: 样式控制 , 可选
  * @params style.maxNum: 设置比例最大值
+ * @params style.unit: 设置单位
  * @params style.fontColor: 字颜色
  * @params style.fontSize: 字大小
  * @params style.zhuColor: 设置柱颜色,渐变颜色英文标点逗号隔开 ,例:['#5497E3,#1281D1', '#7CD05C,#569A3B', '#FBC94C,#9F823A', '#FC888D,#E36067']
@@ -384,6 +385,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
     datas = datas || [];
     xLabel = xLabel || [];
     style = style || {};
+    style.unit = style.unit || '';
     style.fontColor = style.fontColor || '#fff';
     style.fontSize = style.fontSize || '12px';
     style.zhuColor = style.zhuColor || ['#5497E3,#1281D1', '#7CD05C,#569A3B', '#FBC94C,#9F823A', '#FC888D,#E36067'];
@@ -496,7 +498,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                 if(xLabel.length && xLabel[index]) $(v +' .charts-zhu-col .c-right .c-tip .c-tip-til').html(xLabel[index]);
                 let str = '';
                 $(this).children('i').each(function(i){
-                    str += '<div class="c-tip-text-row"><b style="background: '+ style.zhuColor[i].split(',')[0] +';"></b>'+ $(this).attr("clabel") +'：'+ $(this).attr("cnum") +'</div>';
+                    str += '<div class="c-tip-text-row"><b style="background: '+ style.zhuColor[i].split(',')[0] +';"></b>'+ $(this).attr("clabel") +'：'+ $(this).attr("cnum") + style.unit +'</div>';
                 });
                 $(v +' .charts-zhu-col .c-right .c-tip .c-tip-con').html(str);
                 $(v +' .charts-zhu-col .c-right .c-tip').addClass('on').addClass('show');
