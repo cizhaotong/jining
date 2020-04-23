@@ -22,7 +22,7 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-col .c-right .c-items .c-item:hover:after{content: '';position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.3);width: 100%;height: 100%;z-index: -1;}
 .charts-zhu-col .c-right .c-bg{position: absolute;width: 100%;height: 100%;z-index: -1;top: 0;left: 0;border-bottom: 1px solid rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.3);}
 .charts-zhu-col .c-right .c-bg i{display: block;height: calc(100% / 5);width: 100%;border-top: 1px solid rgba(255, 255, 255, 0);border-color: inherit;}
-.charts-zhu-col .c-right .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 8;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333;pointer-events: none;opacity: 0;}
+.charts-zhu-col .c-right .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333;pointer-events: none;opacity: 0;max-width: 50%;}
 .charts-zhu-col .c-right .c-tip .c-tip-til{font-size: 12px;}
 .charts-zhu-col .c-right .c-tip .c-tip-con{font-size: 14px;}
 .charts-zhu-col .c-right .c-tip.show{opacity: 1;}
@@ -34,9 +34,9 @@ table{border-collapse: collapse;border-spacing: 0;}
 
 .charts-map{width: 100%;height: 100%;position: relative;z-index: 2;color: #fff;transform: scale(0);}
 .charts-map .c-map-bg{display: block;width: 100%;max-height: 100%;position: absolute;left: 0;top: 0;}
-.charts-map .c-map-points{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 6;}
-.charts-map .c-map-points .c-map-point{position: absolute;height: 22px;line-height: 22px;word-break: keep-all;white-space: nowrap;}
-.charts-map .c-map-points .c-map-point i{display: block;float: left;width: 8px;height: 8px;background: #FD6969;border-radius: 50%;position: relative;z-index: 2;float: left;margin: 7px 10px 0 0;}
+.charts-map .c-map-points{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 6;pointer-events: none;}
+.charts-map .c-map-points .c-map-point{position: absolute;height: 22px;line-height: 22px;word-break: keep-all;white-space: nowrap;pointer-events: none;}
+.charts-map .c-map-points .c-map-point i{display: block;float: left;width: 8px;height: 8px;background: #FD6969;border-radius: 50%;position: relative;z-index: 9;float: left;margin: 7px 10px 0 0;pointer-events: auto;}
 .charts-map .c-map-points .c-map-point i:after{content: '';position: absolute;left: 0;top: 0;width: 100%;height: 100%;border-radius: 50%;z-index: -1;background: #FD6969;opacity: 0.8;animation: mapPointShan 2s infinite ease-out;}
 @keyframes mapPointShan{
     0%{transform: scale(1);opacity: 0.8;}
@@ -47,5 +47,15 @@ table{border-collapse: collapse;border-spacing: 0;}
     0%{transform: scale(0)}
     100%{transform: scale(1)}
 }
-.charts-map .c-map-high{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 2;pointer-events: none;border: 0;opacity: 0;}
+.charts-map .c-map-hover{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 4;}
+
+.charts-map .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333;pointer-events: none;opacity: 0;max-width: 50%;}
+.charts-map .c-tip .c-tip-til{font-size: 12px;}
+.charts-map .c-tip .c-tip-con{font-size: 14px;}
+.charts-map .c-tip.show{opacity: 1;}
+.charts-map .c-tip .c-tip-text-row{padding-left: 10px;position: relative;}
+.charts-map .c-tip .c-tip-text-row b{display: block;width: 6px;height: 6px;border-radius: 50%;background: #5EA1E7;position: absolute;left: 0;top: 50%;margin-top: -3px;}
+
+
+.charts-map .c-map-high{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 2;border: 0;opacity: 0;}
 .charts-map .c-map-high.show{opacity: 1;}

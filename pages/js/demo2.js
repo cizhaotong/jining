@@ -8,7 +8,14 @@ $(function(){
  * 地图
  */
 function map(){
-    $c.charts.map('map');
+    let datas = [{
+        id: 1001,
+        event: {
+            label: '多久啊斯柯达哈哈',
+            desc: '的卡死了电卡还是口袋里哈刘德华打蜡卡仕达'
+        }
+    }];
+    $c.charts.map('map', datas);
 }
 /**
  * 圆环进度条

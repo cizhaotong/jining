@@ -63,8 +63,10 @@ $c.charts.areaSpline = function(v, datas, xLabels, colors) {
 /**
  * 地图
  * @params v: 绑定元素id , 必须
+ * @params datas: 数据列表 , 可选
  * */
-$c.charts.map = function(v) {
+$c.charts.map = function(v, datas) {
+    datas = datas || [];
     let mapSize = [617, 565];
     let outerW = $('#' + v).width();
     let outerH = $('#' + v).height();
@@ -79,46 +81,78 @@ $c.charts.map = function(v) {
     let peY = mapH / mapSize[1];
 
     let mapPoints = [{
+        id: 1001,
         name: '小孟镇',
         point: [156, 52],
-        high: './common/img/map/map_high_1.png'
+        high: './common/img/map/map_high_1.png',
+        area: ['58,54','90,42','214,10','204,30','307,49','250,98','238,128','214,111','105,80','73,84']
     },{
+        id: 1002,
         name: '新驿镇',
         point: [138, 148],
-        high: './common/img/map/map_high_2.png'
+        high: './common/img/map/map_high_2.png',
+        //area: ['34,86','50,58','68,90','107,88','276,146','226,239','158,206','111,207','79,170','68,149','71,98']
     },{
+        id: 1003,
         name: '漕河镇',
         point: [310, 80],
-        high: './common/img/map/map_high_3.png'
+        high: './common/img/map/map_high_3.png',
+        area: []
     },{
+        id: 1004,
         name: '颜店镇',
         point: [122, 280],
-        high: './common/img/map/map_high_4.png'
+        high: './common/img/map/map_high_4.png',
+        area: []
     },{
+        id: 1005,
         name: '新兖镇',
         point: [280, 220],
-        high: './common/img/map/map_high_5.png'
+        high: './common/img/map/map_high_5.png',
+        area: []
     },{
+        id: 1006,
         name: '大安镇',
         point: [420, 120],
-        high: './common/img/map/map_high_6.png'
+        high: './common/img/map/map_high_6.png',
+        area: []
     },{
+        id: 1007,
         name: '龙桥街道',
         point: [350, 278],
-        high: './common/img/map/map_high_7.png'
+        high: './common/img/map/map_high_7.png',
+        area: []
     },{
+        id: 1008,
         name: '鼓楼街道',
         point: [450, 260],
-        high: './common/img/map/map_high_8.png'
+        high: './common/img/map/map_high_8.png',
+        area: []
     },{
+        id: 1009,
         name: '酒仙桥街道',
         point: [502, 230],
-        high: './common/img/map/map_high_9.png'
+        high: './common/img/map/map_high_9.png',
+        area: []
     },{
+        id: 1010,
         name: '兴隆庄街道',
         point: [480, 410],
-        high: './common/img/map/map_high_10.png'
+        high: './common/img/map/map_high_10.png',
+        area: []
     }];
+    if(datas.length){
+        for(let i in datas){
+            for(let j in mapPoints) {
+                if(mapPoints[j].id == datas[i].id){
+                    for(let k in datas[i]){
+                        mapPoints[j][k] = datas[i][k];
+                    }
+                    break;
+                }
+            }
+        }
+    }
     let mapStr = '';
     mapStr += '<div class="charts-map" style="width: '+ mapW +'px;height: '+ mapH +'px;top: '+ mapTop +'px;">';
     mapStr += ' <img class="c-map-bg" src="./common/img/map/map_bg.png" />';
@@ -127,18 +161,81 @@ $c.charts.map = function(v) {
         let pointX = mapPoints[i].point[0] * peX;
         let pointY = mapPoints[i].point[1] * peY;
         mapStr += '     <div class="c-map-point" style="left: '+ pointX +'px;top: '+ pointY +'px;">';
-        mapStr += '         <i index="'+ i +'"></i><span>'+ mapPoints[i].name +'</span>';
+        mapStr += '         <i value="'+ mapPoints[i].id +'"></i><span>'+ mapPoints[i].name +'</span>';
         mapStr += '     </div>';
     }
     mapStr += ' </div>';
+    mapStr += ' <div class="c-map-hover">';
+    mapStr += '     <svg>';
+    for(let i in mapPoints){
+        let id = mapPoints[i].id;
+        let area = mapPoints[i].area;
+        let areaStr = '';
+        if(area && area.length) {
+            for(let j in area) {
+                let point = area[j].split(',');
+                if(j != 0) areaStr += ',';
+                areaStr += point[0] * peX + ',' + point[1] * peY;
+            }
+        }
+        mapStr += '<polygon class="hover-area" value="'+ id +'" fill="rgba(255,255,255,0)" stroke="none" points="'+ areaStr +'"></polygon>';
+    }
+    mapStr += '     </svg>';
+    mapStr += ' </div>';
     mapStr += ' <img class="c-map-high" />';
+    mapStr += ' <div class="c-tip">';
+    mapStr += '       <div class="c-tip-til"></div>';
+    mapStr += '       <div class="c-tip-con"></div>';
+    mapStr += ' </div>';
     mapStr += '</div>';
     $('#' + v).html(mapStr).children('.charts-map').addClass('show');
-    $('#' + v + ' .charts-map .c-map-points .c-map-point i').hover(function(){
-        let index = $(this).attr('index');
-        $('#' + v + ' .charts-map .c-map-high').attr('src', mapPoints[index].high).addClass('show');
+
+    $('#' + v + ' .charts-map .c-map-hover .hover-area, #' + v + ' .charts-map .c-map-points .c-map-point i').hover(function(){
+        let id = $(this).attr('value');
+        for(let i in mapPoints){
+            if(id == mapPoints[i].id) {
+                $('#' + v + ' .charts-map .c-map-high').attr('src', mapPoints[i].high).addClass('show');
+                break;
+            }
+        }
     },function(){
         $('#' + v + ' .charts-map .c-map-high').removeAttr('src').removeClass('show');
+    });
+    let hideTime;
+    $('#' + v + ' .charts-map .c-map-points .c-map-point i').hover(function(){
+        let id = $(this).attr('value');
+        for(let i in mapPoints){
+            if(id == mapPoints[i].id && mapPoints[i].event) {
+                if(mapPoints[i].event.label) $('#' + v +' .charts-map .c-tip .c-tip-til').html(mapPoints[i].event.label);
+                if(mapPoints[i].event.desc) $('#' + v +' .charts-map .c-tip .c-tip-con').html(mapPoints[i].event.desc);
+                $('#' + v +' .charts-map .c-tip').addClass('on').addClass('show');
+                clearTimeout(hideTime);
+
+                let parentOpTop = $(this).parents('.c-map-points').offset().top;
+                let pointOpTop = $(this).offset().top;
+                let tipH = $('#' + v +' .charts-map .c-tip').outerHeight();
+                let opTop = pointOpTop - parentOpTop - tipH - 5;
+
+                let parentOpLeft = $(this).parents('.c-map-points').offset().left;
+                let pointOpLeft = $(this).offset().left;
+                let tipW = $('#' + v +' .charts-map .c-tip').outerWidth();
+                let opLeft = pointOpLeft - parentOpLeft - tipW / 2;
+                $('#' + v +' .charts-map .c-tip').css({
+                    left: opLeft,
+                    top: opTop
+                });
+                break;
+            }
+        }
+    },function(){
+        $('#' + v +' .charts-map .c-tip').removeClass('on');
+        hideTime = setTimeout(function(){
+            if(!$('#' + v +' .charts-map .c-tip').hasClass('on')) {
+                $('#' + v +' .charts-map .c-tip').removeClass('show');
+                $('#' + v +' .charts-map .c-tip .c-tip-til').empty();
+                $('#' + v +' .charts-map .c-tip .c-tip-con').empty();
+            }
+        }, 400);
     });
 }
 /**
@@ -346,8 +443,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
         rightStr += '   <div class="c-bg"><i></i><i></i><i></i><i></i><i></i></div>';
         rightStr += '   <div class="c-tip">';
         rightStr += '       <div class="c-tip-til"></div>';
-        rightStr += '       <div class="c-tip-con">';
-        rightStr += '       </div>';
+        rightStr += '       <div class="c-tip-con"></div>';
         rightStr += '   </div>';
         rightStr += '</div>';
         str += rightStr;
