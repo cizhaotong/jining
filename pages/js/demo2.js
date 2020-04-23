@@ -49,11 +49,22 @@ function zhuRow(){
     },{
         label: '测试3',
         num: 2,
+    },{
+        label: '测试2',
+        num: 30,
+    },{
+        label: '测试3',
+        num: 2,
     }];
     let style = {
         maxNum: 50
     }
     $c.charts.zhuRow('#zhu0', datas, style);
+    let style2 = {
+        maxNum: 50,
+        fontPo: 'top'
+    }
+    $c.charts.zhuRow('#zhu00', datas, style2);
 }
 /**
  * 竖向柱形图 样例

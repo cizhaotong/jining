@@ -384,18 +384,16 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
     datas = datas || [];
     xLabel = xLabel || [];
     style = style || {};
+    style.fontColor = style.fontColor || '#fff';
+    style.fontSize = style.fontSize || '12px';
     style.zhuColor = style.zhuColor || ['#5497E3,#1281D1', '#7CD05C,#569A3B', '#FBC94C,#9F823A', '#FC888D,#E36067'];
     let maxNum = style.maxNum || 0;
     $(v).empty();
     if(datas.length) {
         let str = '';
         let fontStyle = '';
-        if(style.fontColor){
-            fontStyle += 'color: '+ style.fontColor +';';
-        }
-        if(style.fontSize){
-            fontStyle += 'font-size: '+ style.fontSize +';';
-        }
+        fontStyle += 'color: '+ style.fontColor +';';
+        fontStyle += 'font-size: '+ style.fontSize +';';
         str += '<div class="charts-zhu-col" style="'+ fontStyle +'">';
         for(let i in datas) {
             if(datas[i].data && datas[i].data.length) {
@@ -429,13 +427,11 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
             rightStr += '<div class="c-item">';
             for(let j in datas){
                 let zhuStyle = '';
-                if(style.zhuColor){
-                    let zhuColor = style.zhuColor[j].split(',');
-                    if(zhuColor.length > 1){
-                        zhuStyle += 'background: linear-gradient(to top, '+ zhuColor[0] +', '+ zhuColor[1] +');';
-                    }else{
-                        zhuStyle += 'background: '+ zhuColor[0] +';';
-                    }
+                let zhuColor = style.zhuColor[j].split(',');
+                if(zhuColor.length > 1){
+                    zhuStyle += 'background: linear-gradient(to top, '+ zhuColor[0] +', '+ zhuColor[1] +');';
+                }else{
+                    zhuStyle += 'background: '+ zhuColor[0] +';';
                 }
                 if(datas[j].data && datas[j].data[i]) rightStr += '<i class="c-col-'+ j +'" col="c-col-'+ j +'" clabel="'+ datas[j].name +'" cnum="'+ datas[j].data[i] +'" style="'+ zhuStyle +'" value="'+ datas[j].data[i] +'"></i>';
             }
@@ -545,6 +541,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
  * @params datas: 数据列表 ,例: [{label: '样例一', num: '数量1'}, {label: '样例二', num: '数量2'}, ...], 必须
  * @params style: 样式控制 , 可选
  * @params style.maxNum: 设置比例最大值
+ * @params style.fontPo: 文字位置,默认normal,可选:top, normal
  * @params style.fontColor: 字颜色
  * @params style.fontSize: 字大小
  * @params style.bgColor: 设置背景颜色,渐变颜色英文标点逗号隔开
@@ -555,6 +552,12 @@ $c.charts.zhuRow = function(v, datas, style) {
     if(v && v.indexOf('#') == -1 && v.indexOf('.') == -1) v = '#' + v;
     datas = datas || [];
     style = style || {};
+    style.fontPo = style.fontPo || 'normal';
+    style.fontColor = style.fontColor || '#fff';
+    style.fontSize = style.fontSize || '12px';
+    style.bgColor = style.bgColor || '#013567';
+    style.borderColor = style.borderColor || '#01479C';
+    style.zhuColor = style.zhuColor || 'linear-gradient(to right, #024164 , #118CD2)';
     $(v).empty();
     if(datas.length){
         let maxNum = style.maxNum || 0;
@@ -568,36 +571,38 @@ $c.charts.zhuRow = function(v, datas, style) {
             let zhuBgStyle = '';
             let zhuStyle = '';
             let fontStyle = ''
-            if(style.bgColor){
-                let bgColor = style.bgColor.split(',');
-                if(bgColor.length > 1){
-                    zhuBgStyle += 'background: linear-gradient(to right, '+ bgColor[0] +', '+ bgColor[1] +');';
-                }else{
-                    zhuBgStyle += 'background: '+ bgColor[0] +';';
-                }
+            let bgColor = style.bgColor.split(',');
+            if(bgColor.length > 1){
+                zhuBgStyle += 'background: linear-gradient(to right, '+ bgColor[0] +', '+ bgColor[1] +');';
+            }else{
+                zhuBgStyle += 'background: '+ bgColor[0] +';';
             }
-            if(style.borderColor){
-                zhuBgStyle += 'border-color: '+ style.borderColor +';';
+            zhuBgStyle += 'border-color: '+ style.borderColor +';';
+            let zhuColor = style.zhuColor.split(',');
+            if(zhuColor.length > 1){
+                zhuStyle += 'background: linear-gradient(to right, '+ zhuColor[0] +', '+ zhuColor[1] +');';
+            }else{
+                zhuStyle += 'background: '+ zhuColor[0] +';';
             }
-            if(style.zhuColor){
-                let zhuColor = style.zhuColor.split(',');
-                if(zhuColor.length > 1){
-                    zhuStyle += 'background: linear-gradient(to right, '+ zhuColor[0] +', '+ zhuColor[1] +');';
-                }else{
-                    zhuStyle += 'background: '+ zhuColor[0] +';';
-                }
+            fontStyle += 'color: '+ style.fontColor +';';
+            fontStyle += 'font-size: '+ style.fontSize +';';
+            if(style.fontPo == 'top') {
+                str += '	<tr style="'+ fontStyle +'">';
+                str += '		<td>';
+                str += '		    <div class="c-zhu-row-top">';
+                str += '		        <span class="text-more">'+ label +'</span>';
+                str += '		        <span class="text-more">'+ num +'</span>';
+                str += '		    </div>';
+                str += '		    <b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b>';
+                str += '		</td>';
+                str += '	</tr>';
+            }else {
+                str += '	<tr style="'+ fontStyle +'">';
+                str += '		<td><span class="text-more">'+ label +'</span></td>';
+                str += '		<td><b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
+                str += '		<td><span class="text-more">'+ num +'</span></td>';
+                str += '	</tr>';
             }
-            if(style.fontColor){
-                fontStyle += 'color: '+ style.fontColor +';';
-            }
-            if(style.fontSize){
-                fontStyle += 'font-size: '+ style.fontSize +';';
-            }
-            str += '	<tr style="'+ fontStyle +'">';
-            str += '		<td><span class="text-more">'+ label +'</span></td>';
-            str += '		<td><b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
-            str += '		<td><span class="text-more">'+ num +'</span></td>';
-            str += '	</tr>';
         }
         str += '	</table>';
         str += '</div>';
