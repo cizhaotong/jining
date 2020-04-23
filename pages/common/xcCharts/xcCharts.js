@@ -227,6 +227,18 @@ $c.charts.map = function(v, datas) {
                     top: opTop,
                     transition: 'left 0.2s ease-out,top 0.2s ease-out'
                 });
+                setTimeout(function(){
+                    let tipH = $('#' + v +' .charts-map .c-tip').outerHeight();
+                    let opTop = pointOpTop - parentOpTop - tipH - 5;
+
+                    let tipW = $('#' + v +' .charts-map .c-tip').outerWidth();
+                    let opLeft = pointOpLeft - parentOpLeft - tipW / 2;
+                    $('#' + v +' .charts-map .c-tip').css({
+                        left: opLeft,
+                        top: opTop,
+                        transition: 'left 0.2s ease-out,top 0.2s ease-out'
+                    });
+                },200);
                 break;
             }
         }
