@@ -541,6 +541,7 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
  * @params datas: 数据列表 ,例: [{label: '样例一', num: '数量1'}, {label: '样例二', num: '数量2'}, ...], 必须
  * @params style: 样式控制 , 可选
  * @params style.maxNum: 设置比例最大值
+ * @params style.unit: 设置单位
  * @params style.fontPo: 文字位置,默认normal,可选:top, normal
  * @params style.fontColor: 字颜色
  * @params style.fontSize: 字大小
@@ -552,6 +553,7 @@ $c.charts.zhuRow = function(v, datas, style) {
     if(v && v.indexOf('#') == -1 && v.indexOf('.') == -1) v = '#' + v;
     datas = datas || [];
     style = style || {};
+    style.unit = style.unit || '';
     style.fontPo = style.fontPo || 'normal';
     style.fontColor = style.fontColor || '#fff';
     style.fontSize = style.fontSize || '12px';
@@ -591,7 +593,7 @@ $c.charts.zhuRow = function(v, datas, style) {
                 str += '		<td>';
                 str += '		    <div class="c-zhu-row-top">';
                 str += '		        <span class="text-more">'+ label +'</span>';
-                str += '		        <span class="text-more">'+ num +'</span>';
+                str += '		        <span class="text-more">'+ num + style.unit +'</span>';
                 str += '		    </div>';
                 str += '		    <b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b>';
                 str += '		</td>';
@@ -600,7 +602,7 @@ $c.charts.zhuRow = function(v, datas, style) {
                 str += '	<tr style="'+ fontStyle +'">';
                 str += '		<td><span class="text-more">'+ label +'</span></td>';
                 str += '		<td><b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
-                str += '		<td><span class="text-more">'+ num +'</span></td>';
+                str += '		<td><span class="text-more">'+ num + style.unit +'</span></td>';
                 str += '	</tr>';
             }
         }

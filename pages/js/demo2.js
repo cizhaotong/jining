@@ -62,7 +62,8 @@ function zhuRow(){
     $c.charts.zhuRow('#zhu0', datas, style);
     let style2 = {
         maxNum: 50,
-        fontPo: 'top'
+        fontPo: 'top',
+        unit: '例'
     }
     $c.charts.zhuRow('#zhu00', datas, style2);
 }
