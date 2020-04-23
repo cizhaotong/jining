@@ -224,7 +224,8 @@ $c.charts.map = function(v, datas) {
                 let opLeft = pointOpLeft - parentOpLeft - tipW / 2;
                 $('#' + v +' .charts-map .c-tip').css({
                     left: opLeft,
-                    top: opTop
+                    top: opTop,
+                    transition: 'left 0.2s ease-out,top 0.2s ease-out'
                 });
                 break;
             }
@@ -522,7 +523,8 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
                 $(v +' .charts-zhu-col .c-right .c-tip').css({
                     left: opLeft,
                     top: opTop,
-                    'border-color': style.zhuColor[0].split(',')[0]
+                    'border-color': style.zhuColor[0].split(',')[0],
+                    transition: 'left 0.2s ease-out,top 0.2s ease-out'
                 });
             },function(){
                 $(v +' .charts-zhu-col .c-right .c-tip').removeClass('on');
