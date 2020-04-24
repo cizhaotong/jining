@@ -559,9 +559,16 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
  * @params style.maxNum: 设置比例最大值
  * @params style.unit: 设置单位
  * @params style.fontPo: 文字位置,默认normal,可选:top, normal
- * @params style.fontColor: 字颜色
- * @params style.fontSize: 字大小
+ * @params style.fontColor: 字颜色,若前后文字区分颜色英文逗号隔开
+ * @params style.fontSize: 字大小,若前后文字区分大小英文逗号隔开
  * @params style.bgColor: 设置背景颜色,渐变颜色英文标点逗号隔开
+ * @params style.fontSpecial: 设置文字特效
+ * @params style.fontSpecial.split: 分隔成对符号,例:'()',若只有单符号会自动生成两个相同的符号
+ * @params style.fontSpecial.ifSplit: 是否显示分隔符, 默认false,可选true
+ * @params style.fontSpecial.color: 文字颜色
+ * @params style.fontSpecial.ifSplitColor: 分隔符是否跟随文字颜色, 默认false,可选true
+ * @params style.fontSpecial.size: 文字大小
+ * @params style.fontSpecial.ifSplitSize: 文分隔符是否跟随文字大小, 默认false,可选true
  * @params style.borderColor: 设置边框颜色
  * @params style.zhuColor: 设置柱颜色,渐变颜色英文标点逗号隔开
  * */
@@ -576,6 +583,9 @@ $c.charts.zhuRow = function(v, datas, style) {
     style.bgColor = style.bgColor || '#013567';
     style.borderColor = style.borderColor || '#01479C';
     style.zhuColor = style.zhuColor || 'linear-gradient(to right, #024164 , #118CD2)';
+    style.fontSpecial = style.fontSpecial || {};
+    style.fontSpecial.color = style.fontSpecial.color || 'inherit';
+    style.fontSpecial.size = style.fontSpecial.size || 'inherit';
     $(v).empty();
     if(datas.length){
         let maxNum = style.maxNum || 0;
@@ -585,6 +595,26 @@ $c.charts.zhuRow = function(v, datas, style) {
         for(let i in datas) {
             let label = datas[i].label || '';
             let num = datas[i].num || 0;
+            if(style.fontSpecial.split){
+                let split = [style.fontSpecial.split.substr(0, 1), style.fontSpecial.split.substr(-1)];
+                let labelNew = label;
+                if(labelNew.indexOf(split[0]) != -1) labelNew = labelNew.split(split[0])[1];
+                if(labelNew.indexOf(split[1]) != -1)labelNew = labelNew.split(split[1])[0];
+                let splitStr = '';
+                if(style.fontSpecial.ifSplit) {
+                    let splitStrStyle = '';
+                    if(style.fontSpecial.ifSplitColor) splitStrStyle += 'color: '+ style.fontSpecial.color +';';
+                    if(style.fontSpecial.ifSplitSize) splitStrStyle += 'font-size: '+ style.fontSpecial.size +';';
+                    splitStr = '<font style="'+ splitStrStyle +'">'+ split[0] +'</font>&<font style="'+ splitStrStyle +'">'+ split[1] +'</font>'
+                }
+                let labelReplaceBefore = split[0] + labelNew + split[1];
+                let labelReplaceAfter = '';
+                labelReplaceAfter += splitStr.split('&')[0] || '';
+                labelReplaceAfter += '<font style="color: '+ style.fontSpecial.color +';font-size: '+ style.fontSpecial.size +';">'+ labelNew +'</font>'
+                labelReplaceAfter += splitStr.split('&')[1] || '';
+                label = label.replace(labelReplaceBefore, labelReplaceAfter);
+            }
+
             if(num > maxNum) maxNum = num;
             let zhuBgStyle = '';
             let zhuStyle = '';
@@ -602,23 +632,23 @@ $c.charts.zhuRow = function(v, datas, style) {
             }else{
                 zhuStyle += 'background: '+ zhuColor[0] +';';
             }
-            fontStyle += 'color: '+ style.fontColor +';';
-            fontStyle += 'font-size: '+ style.fontSize +';';
+            let fontColor = style.fontColor.split(',');
+            let fontSize = style.fontSize.split(',');
             if(style.fontPo == 'top') {
                 str += '	<tr style="'+ fontStyle +'">';
                 str += '		<td>';
                 str += '		    <div class="c-zhu-row-top">';
-                str += '		        <span class="text-more">'+ label +'</span>';
-                str += '		        <span class="text-more">'+ num + style.unit +'</span>';
+                str += '		        <span class="text-more" style="color: '+ fontColor[0] +';font-size: '+ fontSize[0] +';">'+ label +'</span>';
+                str += '		        <span class="text-more" style="color: '+ (fontColor[1] || fontColor[0]) +';;font-size: '+ (fontSize[1] || fontSize[0]) +';">'+ num + style.unit +'</span>';
                 str += '		    </div>';
                 str += '		    <b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b>';
                 str += '		</td>';
                 str += '	</tr>';
             }else {
                 str += '	<tr style="'+ fontStyle +'">';
-                str += '		<td><span class="text-more">'+ label +'</span></td>';
+                str += '		<td><span class="text-more" style="color: '+ fontColor[0] +';font-size: '+ fontSize[0] +';">'+ label +'</span></td>';
                 str += '		<td><b class="c-zhu-row" style="'+ zhuBgStyle +'"><i value="'+ num +'" style="'+ zhuStyle +'"></i></b></td>';
-                str += '		<td><span class="text-more">'+ num + style.unit +'</span></td>';
+                str += '		<td><span class="text-more" style="color: '+ (fontColor[1] || fontColor[0]) +';;font-size: '+ (fontSize[1] || fontSize[0]) +';">'+ num + style.unit +'</span></td>';
                 str += '	</tr>';
             }
         }

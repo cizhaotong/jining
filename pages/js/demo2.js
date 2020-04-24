@@ -47,13 +47,7 @@ function zhuRow(){
         label: '测试2',
         num: 30,
     },{
-        label: '测试3',
-        num: 2,
-    },{
-        label: '测试2',
-        num: 30,
-    },{
-        label: '测试3',
+        label: '测试(3333)',
         num: 2,
     }];
     let style = {
@@ -63,7 +57,13 @@ function zhuRow(){
     let style2 = {
         maxNum: 50,
         fontPo: 'top',
-        unit: '例'
+        unit: '例',
+        fontColor: '#ffeb00,#00ff08',
+        fontSize: '16px,12px',
+        fontSpecial: {
+            split: '()',
+            color: 'red'
+        }
     }
     $c.charts.zhuRow('#zhu00', datas, style2);
 }
