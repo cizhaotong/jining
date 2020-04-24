@@ -562,8 +562,8 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
  * @params style.fontColor: 字颜色,若前后文字区分颜色英文逗号隔开
  * @params style.fontSize: 字大小,若前后文字区分大小英文逗号隔开
  * @params style.bgColor: 设置背景颜色,渐变颜色英文标点逗号隔开
- * @params style.fontSpecial: 设置文字特效
- * @params style.fontSpecial.split: 分隔成对符号,例:'()',若只有单符号会自动生成两个相同的符号
+ * @params style.fontSpecial: 设置文字特效, 可选
+ * @params style.fontSpecial.split: 分隔成对符号,例:'()',若只有单符号会自动生成两个相同的符号, 必须
  * @params style.fontSpecial.ifSplit: 是否显示分隔符, 默认false,可选true
  * @params style.fontSpecial.color: 文字颜色
  * @params style.fontSpecial.ifSplitColor: 分隔符是否跟随文字颜色, 默认false,可选true
