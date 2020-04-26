@@ -8,13 +8,73 @@ $c.charts = {};
  * @params v: 绑定元素id , 必须
  * @params datas: 数据列表,例: [{name: '名称', data: [1, 2, 3, ...]}, ...] , 必须
  * @params xLabels: x轴文字显示列表,例: ['文字1', '文字2', '文字3', ...] , 必须
- * @params colors: 柱颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
+ * @params style: 样式控制
+ * @params style.colors: 面积背景颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
+ * @params style.legend: 图例控制
+ * @params style.legend.enabled: 图例开关,默认true,可选false
+ * @params style.legend.color: 字颜色
+ * @params style.legend.po: 图例位置,默认bottom,可选top, right, bottom, left
+ * @params style.legend.in: 图例是否在图表内部显示,默认false,可选true
+ * @params style.legend.inPo: 图例在图标内部显示位置,默认middle, 可选top, middle, bottom
+ * @params style.legend.inBgColor: 图例在图标内部显示背景颜色,默认#fff
+ * @params style.legend.inBorderWidth: 图例在图标内部显示边框宽度,默认1
+ * @params style.legend.inBorderColor: 图例在图标内部显示边框颜色,默认#999
  * */
-$c.charts.areaSpline = function(v, datas, xLabels, colors) {
+$c.charts.areaSpline = function(v, datas, xLabels, style) {
     datas = datas || [];
     xLabels = xLabels || [];
-    colors = colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
-    Highcharts.chart(v,{
+    style = style || {};
+    style.colors = style.colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
+    style.legend = style.legend || {};
+    style.legend.enabled = style.legend.enabled !== false;
+    style.legend.bgColor = 'none';
+    style.legend.po = style.legend.po || 'bottom';
+    style.legend.align = 'center';
+    style.legend.layout = 'horizontal';
+    style.legend.itemMargin = 0;
+    style.legend.floating = false;
+    style.legend.inPo = style.legend.inPo || 'middle';
+    style.legend.inBorderColor = style.legend.inBorderColor || '#999';
+    style.legend.borderWidth = 0;
+    style.legend.x = 0;
+    style.legend.y = 0;
+    style.legend.shadow = false;
+
+    if(style.legend.po == 'bottom') {
+        style.legend.verticalAlign = 'bottom';
+    }
+    if(style.legend.po == 'top') {
+        style.legend.verticalAlign = 'top';
+    }
+    if(style.legend.po == 'left') {
+        style.legend.verticalAlign = 'middle';
+        style.legend.align = 'left';
+        style.legend.layout = 'vertical';
+    }
+    if(style.legend.po == 'right') {
+        style.legend.verticalAlign = 'middle';
+        style.legend.align = 'right';
+        style.legend.layout = 'vertical';
+    }
+    if(style.legend.in) {
+        style.legend.color = style.legend.color || '#333';
+        style.legend.floating = true;
+        style.legend.verticalAlign = style.legend.inPo;
+        style.legend.inBgColor = style.legend.inBgColor || '#fff';
+        style.legend.bgColor = style.legend.inBgColor;
+        style.legend.inBorderWidth = style.legend.inBorderWidth || 1;
+        style.legend.borderWidth = style.legend.inBorderWidth;
+        if(style.legend.po == 'right') style.legend.x = -10;
+        if(style.legend.verticalAlign == 'top') style.legend.y = 10;
+        style.legend.shadow = true;
+    }else {
+        style.legend.color = style.legend.color || '#fff';
+    }
+    // if(datas.length && style.legend.po == 'left' || style.legend.po == 'right') {
+    //     let outerH = $('#' + v).height();
+    //     style.legend.itemMargin = parseInt((outerH / datas.length - 20) / 2);
+    // }
+    let areaspline = Highcharts.chart(v,{
         chart: {
             type: 'areaspline',
             backgroundColor: 'none'
@@ -23,7 +83,39 @@ $c.charts.areaSpline = function(v, datas, xLabels, colors) {
             text: ''
         },
         legend: {
-            enabled: false
+            enabled: style.legend.enabled,
+            align: style.legend.align,
+            verticalAlign: style.legend.verticalAlign,
+            layout: style.legend.layout,
+            squareSymbol: false,
+            symbolHeight: 8,
+            symbolWidth: 20,
+            symbolPadding: 8,
+            itemMarginTop: style.legend.itemMargin,
+            itemMarginBottom: style.legend.itemMargin,
+            navigation: {
+                enabled: false
+            },
+            itemStyle: {
+                color: style.legend.color,
+                fontWeight: 'normal',
+                opacity: 0.9
+            },
+            itemHoverStyle: {
+                color: style.legend.color,
+            },
+            itemHiddenStyle: {
+                color: style.legend.color,
+                opacity: 0.5
+            },
+            floating: style.legend.floating,
+            backgroundColor: style.legend.bgColor,
+            x: style.legend.x,
+            y: style.legend.y,
+            borderColor: style.legend.inBorderColor,
+            borderWidth: style.legend.borderWidth,
+            borderRadius: 2,
+            shadow: style.legend.shadow
         },
         xAxis: {
             categories: xLabels,
@@ -55,10 +147,25 @@ $c.charts.areaSpline = function(v, datas, xLabels, colors) {
                 fillOpacity: 0.5
             }
         },
-        colors: colors,
+        colors: style.colors,
         series: datas
     });
     $('#'+ v +' .highcharts-credits').remove();
+    if(style.legend.in) {
+        if(style.legend.po == 'left'){
+            let outerPL =  parseInt($('#'+ v +' .highcharts-plot-background').attr('x'));
+            areaspline.legend.update({
+                x: outerPL
+            });
+        }
+        if(style.legend.verticalAlign == 'bottom'){
+            let outerPB =  parseInt($('#'+ v +' .highcharts-plot-background').attr('height')) - parseInt($('#'+ v +' .highcharts-legend-box').attr('height')) - 10;
+            areaspline.legend.update({
+                verticalAlign: 'top',
+                y: outerPB
+            });
+        }
+    }
 }
 /**
  * 地图
@@ -299,15 +406,15 @@ $c.charts.ringSpeed = function(v, value, style) {
     });
 }
 /**
- * 饼形图
+ * 饼形图 highcharts
  * @params v: 绑定元素id , 必须
  * @params datas: 数据列表,例: [{name: '个体访',y: 75}, ...] , 必须
  * @params style: 样式控制 , 可选
- * @params style.fontColor: 字颜色
  * @params style.pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
  * @params style.innerSize: 中间圆环百分比,默认0
  * @params style.legend: 图例控制
  * @params style.legend.enabled: 图例开关,默认true,可选false
+ * @params style.legend.color: 字颜色
  * @params style.legend.po: 图例位置,默认bottom,可选top, right, bottom, left
  * @params style.legend.ifLabelNum: 是否显示图例数值,默认false,可选true
  * @params style.legend.labelSplit: 显示图例数值分隔符,默认中文分号'：'
@@ -317,9 +424,9 @@ $c.charts.pie = function(v, datas, style) {
     style = style || {};
     style.pieColors = style.pieColors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
     style.innerSize = style.innerSize || 0;
-    style.fontColor = style.fontColor || '#fff';
     style.legend = style.legend || {};
     style.legend.enabled = style.legend.enabled !== false;
+    style.legend.color = style.legend.color || '#fff';
     style.legend.po = style.legend.po || 'bottom';
     style.legend.align = 'center';
     style.legend.layout = 'horizontal';
@@ -340,10 +447,10 @@ $c.charts.pie = function(v, datas, style) {
         style.legend.align = 'right';
         style.legend.layout = 'vertical';
     }
-    if(datas.length && style.legend.po == 'left' || style.legend.po == 'right') {
-        let outerH = $('#' + v).height();
-        style.legend.itemMargin = parseInt((outerH / datas.length - 20) / 2);
-    }
+    // if(datas.length && style.legend.po == 'left' || style.legend.po == 'right') {
+    //     let outerH = $('#' + v).height();
+    //     style.legend.itemMargin = parseInt((outerH / datas.length - 20) / 2);
+    // }
     style.legend.labelFormat = '{name}';
     style.legend.labelSplit = style.legend.labelSplit || '：';
     if(style.legend.ifLabelNum) style.legend.labelFormat += style.legend.labelSplit + '{y}';
@@ -389,15 +496,15 @@ $c.charts.pie = function(v, datas, style) {
                 enabled: false
             },
             itemStyle: {
-                color: style.fontColor,
+                color: style.legend.color,
                 fontWeight: 'normal',
                 opacity: 0.9
             },
             itemHoverStyle: {
-                color: style.fontColor,
+                color: style.legend.color,
             },
             itemHiddenStyle: {
-                color: style.fontColor,
+                color: style.legend.color,
                 opacity: 0.5
             }
         },
@@ -704,13 +811,73 @@ $c.charts.zhuRow = function(v, datas, style) {
  * @params v: 绑定元素id , 必须
  * @params datas: 数据列表,例: [{name: '柱名称', data: [1, 2, 3, ...]}, ...] , 必须
  * @params xLabels: x轴文字显示列表,例: ['文字1', '文字2', '文字3', ...] , 必须
- * @params colors: 柱颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
+ * @params style: 样式控制
+ * @params style.colors: 柱颜色 , 例: ['#428EDA', '#87D568', ...] , 可选
+ * @params style.legend: 图例控制
+ * @params style.legend.enabled: 图例开关,默认true,可选false
+ * @params style.legend.color: 字颜色
+ * @params style.legend.po: 图例位置,默认bottom,可选top, right, bottom, left
+ * @params style.legend.in: 图例是否在图表内部显示,默认false,可选true
+ * @params style.legend.inPo: 图例在图标内部显示位置,默认middle, 可选top, middle, bottom
+ * @params style.legend.inBgColor: 图例在图标内部显示背景颜色,默认#fff
+ * @params style.legend.inBorderWidth: 图例在图标内部显示边框宽度,默认1
+ * @params style.legend.inBorderColor: 图例在图标内部显示边框颜色,默认#999
  * */
-$c.charts.zhu = function(v, datas, xLabels, colors) {
+$c.charts.zhu = function(v, datas, xLabels, style) {
     datas = datas || [];
     xLabels = xLabels || [];
-    colors = colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
-    Highcharts.chart(v,{
+    style = style || {};
+    style.colors = style.colors || ['#428EDA', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FCCD57'];
+    style.legend = style.legend || {};
+    style.legend.enabled = style.legend.enabled !== false;
+    style.legend.bgColor = 'none';
+    style.legend.po = style.legend.po || 'bottom';
+    style.legend.align = 'center';
+    style.legend.layout = 'horizontal';
+    style.legend.itemMargin = 0;
+    style.legend.floating = false;
+    style.legend.inPo = style.legend.inPo || 'middle';
+    style.legend.inBorderColor = style.legend.inBorderColor || '#999';
+    style.legend.borderWidth = 0;
+    style.legend.x = 0;
+    style.legend.y = 0;
+    style.legend.shadow = false;
+
+    if(style.legend.po == 'bottom') {
+        style.legend.verticalAlign = 'bottom';
+    }
+    if(style.legend.po == 'top') {
+        style.legend.verticalAlign = 'top';
+    }
+    if(style.legend.po == 'left') {
+        style.legend.verticalAlign = 'middle';
+        style.legend.align = 'left';
+        style.legend.layout = 'vertical';
+    }
+    if(style.legend.po == 'right') {
+        style.legend.verticalAlign = 'middle';
+        style.legend.align = 'right';
+        style.legend.layout = 'vertical';
+    }
+    if(style.legend.in) {
+        style.legend.color = style.legend.color || '#333';
+        style.legend.floating = true;
+        style.legend.verticalAlign = style.legend.inPo;
+        style.legend.inBgColor = style.legend.inBgColor || '#fff';
+        style.legend.bgColor = style.legend.inBgColor;
+        style.legend.inBorderWidth = style.legend.inBorderWidth || 1;
+        style.legend.borderWidth = style.legend.inBorderWidth;
+        if(style.legend.po == 'right') style.legend.x = -10;
+        if(style.legend.verticalAlign == 'top') style.legend.y = 10;
+        style.legend.shadow = true;
+    }else {
+        style.legend.color = style.legend.color || '#fff';
+    }
+    // if(datas.length && style.legend.po == 'left' || style.legend.po == 'right') {
+    //     let outerH = $('#' + v).height();
+    //     style.legend.itemMargin = parseInt((outerH / datas.length - 20) / 2);
+    // }
+    let zhu = Highcharts.chart(v,{
         chart: {
             type: 'column',
             backgroundColor: 'none'
@@ -751,10 +918,57 @@ $c.charts.zhu = function(v, datas, xLabels, colors) {
             }
         },
         legend: {
-            enabled: false
+            enabled: style.legend.enabled,
+            align: style.legend.align,
+            verticalAlign: style.legend.verticalAlign,
+            layout: style.legend.layout,
+            squareSymbol: false,
+            symbolHeight: 8,
+            symbolWidth: 20,
+            symbolPadding: 8,
+            itemMarginTop: style.legend.itemMargin,
+            itemMarginBottom: style.legend.itemMargin,
+            navigation: {
+                enabled: false
+            },
+            itemStyle: {
+                color: style.legend.color,
+                fontWeight: 'normal',
+                opacity: 0.9
+            },
+            itemHoverStyle: {
+                color: style.legend.color,
+            },
+            itemHiddenStyle: {
+                color: style.legend.color,
+                opacity: 0.5
+            },
+            floating: style.legend.floating,
+            backgroundColor: style.legend.bgColor,
+            x: style.legend.x,
+            y: style.legend.y,
+            borderColor: style.legend.inBorderColor,
+            borderWidth: style.legend.borderWidth,
+            borderRadius: 2,
+            shadow: style.legend.shadow
         },
         series: datas,
-        colors: colors
+        colors: style.colors
     });
     $('#'+ v +' .highcharts-credits').remove();
+    if(style.legend.in) {
+        if(style.legend.po == 'left'){
+            let outerPL =  parseInt($('#'+ v +' .highcharts-plot-background').attr('x'));
+            zhu.legend.update({
+                x: outerPL
+            });
+        }
+        if(style.legend.verticalAlign == 'bottom'){
+            let outerPB =  parseInt($('#'+ v +' .highcharts-plot-background').attr('height')) - parseInt($('#'+ v +' .highcharts-legend-box').attr('height')) - 10;
+            zhu.legend.update({
+                verticalAlign: 'top',
+                y: outerPB
+            });
+        }
+    }
 }

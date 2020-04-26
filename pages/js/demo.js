@@ -15,7 +15,15 @@ function area(){
         data: [1, 3, 4, 3, 3, 5, 4]
     }];
     let xLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    $c.charts.areaSpline('area', datas, xLabels);
+    let style = {
+        legend: {
+            po: 'right',
+            in: true,
+            inPo: 'bottom'
+
+        }
+    }
+    $c.charts.areaSpline('area', datas, xLabels, style);
 }
 /**
  * 饼形图
@@ -44,20 +52,6 @@ function pie() {
             y: 10,
             sliced: true,
             selected: true
-        }, {
-            name: '超级访',
-            y: 15
-        },{
-            name: '个体访',
-            y: 75
-        }, {
-            name: '群体访',
-            y: 10,
-            sliced: true,
-            selected: true
-        }, {
-            name: '超级访',
-            y: 15
         }
     ];
     let style = {
@@ -79,6 +73,13 @@ function zhuCol(){
         name: '样例一',
         data: [678,685,156,678, 876,200,200,550,145, 333,589, 100]
     }];
-    let xLabel2 = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-    $c.charts.zhu('zhu3', datas2, xLabel2);
+    let xLabel2 = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    let style = {
+        legend: {
+            po: 'left',
+            in: true,
+            inPo: 'bottom'
+        }
+    };
+    $c.charts.zhu('zhu3', datas2, xLabel2, style);
 }
