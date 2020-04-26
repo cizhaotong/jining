@@ -306,6 +306,11 @@ $c.charts.ringSpeed = function(v, value, style) {
  * @params style.fontColor: 字颜色
  * @params style.pieColors: 扇形区域颜色,例: ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'] , 可选
  * @params style.innerSize: 中间圆环百分比,默认0
+ * @params style.legend: 图例控制
+ * @params style.legend.enabled: 图例开关,默认true,可选false
+ * @params style.legend.po: 图例位置,默认bottom,可选top, right, bottom, left
+ * @params style.legend.ifLabelNum: 是否显示图例数值,默认false,可选true
+ * @params style.legend.labelSplit: 显示图例数值分隔符,默认中文分号'：'
  * */
 $c.charts.pie = function(v, datas, style) {
     datas = datas || [];
@@ -313,10 +318,35 @@ $c.charts.pie = function(v, datas, style) {
     style.pieColors = style.pieColors || ['#128CD7', '#87D568', '#FF696B', '#7F77E6', '#D8A7DE', '#FBCE57'];
     style.innerSize = style.innerSize || 0;
     style.fontColor = style.fontColor || '#fff';
-    if(datas.length){
-        let bodyH = $('#' + v).height();
-        style.lineHeight = parseInt((bodyH / datas.length - 20) / 2);
+    style.legend = style.legend || {};
+    style.legend.enabled = style.legend.enabled !== false;
+    style.legend.po = style.legend.po || 'bottom';
+    style.legend.align = 'center';
+    style.legend.layout = 'horizontal';
+    style.legend.itemMargin = 0;
+    if(style.legend.po == 'bottom') {
+        style.legend.verticalAlign = 'bottom';
     }
+    if(style.legend.po == 'top') {
+        style.legend.verticalAlign = 'top';
+    }
+    if(style.legend.po == 'left') {
+        style.legend.verticalAlign = 'middle';
+        style.legend.align = 'left';
+        style.legend.layout = 'vertical';
+    }
+    if(style.legend.po == 'right') {
+        style.legend.verticalAlign = 'middle';
+        style.legend.align = 'right';
+        style.legend.layout = 'vertical';
+    }
+    if(datas.length && style.legend.po == 'left' || style.legend.po == 'right') {
+        let outerH = $('#' + v).height();
+        style.legend.itemMargin = parseInt((outerH / datas.length - 20) / 2);
+    }
+    style.legend.labelFormat = '{name}';
+    style.legend.labelSplit = style.legend.labelSplit || '：';
+    if(style.legend.ifLabelNum) style.legend.labelFormat += style.legend.labelSplit + '{y}';
     Highcharts.chart(v, {
         chart: {
             plotBackgroundColor: null,
@@ -344,16 +374,17 @@ $c.charts.pie = function(v, datas, style) {
             }
         },
         legend: {
-            align: 'right',
-            verticalAlign: 'middle',
-            layout: 'vertical',
+            enabled: style.legend.enabled,
+            align: style.legend.align,
+            verticalAlign: style.legend.verticalAlign,
+            layout: style.legend.layout,
             squareSymbol: false,
             symbolHeight: 8,
             symbolWidth: 20,
             symbolPadding: 8,
-            labelFormat: '{name}：{y}',
-            itemMarginTop: style.lineHeight,
-            itemMarginBottom: style.lineHeight,
+            labelFormat: style.legend.labelFormat,
+            itemMarginTop: style.legend.itemMargin,
+            itemMarginBottom: style.legend.itemMargin,
             navigation: {
                 enabled: false
             },
@@ -368,8 +399,7 @@ $c.charts.pie = function(v, datas, style) {
             itemHiddenStyle: {
                 color: style.fontColor,
                 opacity: 0.5
-            },
-            x: -10
+            }
         },
         colors: style.pieColors,
         series: [{

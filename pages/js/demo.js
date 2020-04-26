@@ -61,7 +61,10 @@ function pie() {
         }
     ];
     let style = {
-        innerSize: '30%'
+        innerSize: '30%',
+        legend: {
+            po: 'right'
+        }
     }
     $c.charts.pie('pie2', datas2, style);
 }
