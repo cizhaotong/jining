@@ -26,7 +26,7 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-col .c-right .c-items .c-item:hover:after{content: '';position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.3);width: 100%;height: 100%;z-index: -1;}
 .charts-zhu-col .c-right .c-bg{position: absolute;width: 100%;height: 100%;z-index: -1;top: 0;left: 0;border-bottom: 1px solid rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.3);}
 .charts-zhu-col .c-right .c-bg i{display: block;height: calc(100% / 5);width: 100%;border-top: 1px solid rgba(255, 255, 255, 0);border-color: inherit;}
-.charts-zhu-col .c-right .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333;pointer-events: none;opacity: 0;max-width: 50%;}
+.charts-zhu-col .c-right .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333!important;pointer-events: none;opacity: 0;max-width: 50%;}
 .charts-zhu-col .c-right .c-tip .c-tip-til{font-size: 12px;}
 .charts-zhu-col .c-right .c-tip .c-tip-con{font-size: 14px;}
 .charts-zhu-col .c-right .c-tip.show{opacity: 1;}
@@ -53,7 +53,7 @@ table{border-collapse: collapse;border-spacing: 0;}
 }
 .charts-map .c-map-hover{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 4;}
 
-.charts-map .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333;pointer-events: none;opacity: 0;max-width: 50%;}
+.charts-map .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333!important;pointer-events: none;opacity: 0;max-width: 50%;}
 .charts-map .c-tip .c-tip-til{font-size: 12px;}
 .charts-map .c-tip .c-tip-con{font-size: 14px;}
 .charts-map .c-tip.show{opacity: 1;}

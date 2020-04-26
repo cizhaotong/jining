@@ -17,9 +17,9 @@ function area(){
     let xLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let style = {
         legend: {
-            po: 'right',
+            po: 'top',
             in: true,
-            inPo: 'bottom'
+            inPo: 'top'
 
         }
     }
