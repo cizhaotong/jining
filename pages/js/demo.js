@@ -20,7 +20,6 @@ function area(){
             po: 'top',
             in: true,
             inPo: 'top'
-
         }
     }
     $c.charts.areaSpline('area', datas, xLabels, style);
@@ -77,7 +76,6 @@ function zhuCol(){
     let style = {
         legend: {
             po: 'left',
-            in: true,
             inPo: 'bottom'
         }
     };

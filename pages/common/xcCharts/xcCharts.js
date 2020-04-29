@@ -529,6 +529,15 @@ $c.charts.pie = function(v, datas, style) {
  * @params style.fontColor: 字颜色
  * @params style.fontSize: 字大小
  * @params style.zhuColor: 设置柱颜色,渐变颜色英文标点逗号隔开 ,例:['#5497E3,#1281D1', '#7CD05C,#569A3B', '#FBC94C,#9F823A', '#FC888D,#E36067']
+ * @params style.legend: 图例控制
+ * @params style.legend.enabled: 图例开关,默认true,可选false
+ * @params style.legend.color: 字颜色
+ * @params style.legend.po: 图例位置,默认bottom,可选top, right, bottom, left
+ * @params style.legend.in: 图例是否在图表内部显示,默认false,可选true
+ * @params style.legend.inPo: 图例在图标内部显示位置,默认middle, 可选top, middle
+ * @params style.legend.inBgColor: 图例在图标内部显示背景颜色,默认#fff
+ * @params style.legend.inBorderWidth: 图例在图标内部显示边框宽度,默认1
+ * @params style.legend.inBorderColor: 图例在图标内部显示边框颜色,默认#999
  * */
 $c.charts.zhuCol = function(v, datas, xLabel, style) {
     if(v && v.indexOf('#') == -1 && v.indexOf('.') == -1) v = '#' + v;
@@ -539,6 +548,9 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
     style.fontColor = style.fontColor || '#fff';
     style.fontSize = style.fontSize || '12px';
     style.zhuColor = style.zhuColor || ['#5497E3,#1281D1', '#7CD05C,#569A3B', '#FBC94C,#9F823A', '#FC888D,#E36067'];
+    style.legend = style.legend || {};
+    style.legend.enabled = style.legend.enabled !== false;
+    style.legend.po = style.legend.po || 'bottom';
     let maxNum = style.maxNum || 0;
     $(v).empty();
     if(datas.length) {
@@ -547,14 +559,16 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
         fontStyle += 'color: '+ style.fontColor +';';
         fontStyle += 'font-size: '+ style.fontSize +';';
         str += '<div class="charts-zhu-col" style="'+ fontStyle +'">';
+        str += '   <div class="c-legend">';
         for(let i in datas) {
             if(datas[i].data && datas[i].data.length) {
                 for(let j in datas[i].data) {
                     if(datas[i].data[j] > maxNum) maxNum = datas[i].data[j];
                 }
             }
+            str += '   <div class="c-legend-item"><b style="background: '+ style.zhuColor[i].split(',')[0] +';"></b>'+ datas[i].name +'</div>';
         }
-
+        str += '   </div>';
         let leftStr = '';
         leftStr += '<div class="c-left">';
         let leftLen = 5;
@@ -610,7 +624,144 @@ $c.charts.zhuCol = function(v, datas, xLabel, style) {
 
         str += '</div>';
         $(v).html(str);
-
+        if(style.legend.enabled) {
+            $(v +' .charts-zhu-col .c-legend').addClass('show');
+            if(style.legend.po == 'top') {
+                $(v +' .charts-zhu-col .c-legend').css({
+                    'bottom': '100%',
+                    'top': 'auto',
+                    'left': '0',
+                    'right': 'auto'
+                });
+                $(v).css({
+                    'padding-right': $(v +' .charts-zhu-col .c-legend').outerWidth() + 'px'
+                });
+                if(style.legend.in){
+                    $(v +' .charts-zhu-col .c-legend').addClass('in').css({
+                        'bottom': 'auto',
+                        'top': '10px',
+                    });
+                    $(v).css({
+                        'padding': '0'
+                    });
+                }
+            }else if(style.legend.po == 'right') {
+                $(v +' .charts-zhu-col .c-legend').css({
+                    'left': '100%',
+                    'right': 'auto',
+                    'top': '50%',
+                    'bottom': 'auto',
+                    'width': 'auto',
+                    'margin-top': '-' + $(v +' .charts-zhu-col .c-legend').outerHeight() + 'px'
+                });
+                $(v +' .charts-zhu-col .c-legend .c-legend-item').css({
+                    'display': 'block'
+                });
+                $(v).css({
+                    'padding-right': $(v +' .charts-zhu-col .c-legend').outerWidth() + 'px'
+                });
+                if(style.legend.in){
+                    $(v +' .charts-zhu-col .c-legend').addClass('in').css({
+                        'left': 'auto',
+                        'right': '10px',
+                    });
+                    $(v).css({
+                        'padding': '0'
+                    });
+                    if(style.legend.inPo == 'top') {
+                        $(v +' .charts-zhu-col .c-legend').css({
+                            'top': '10px',
+                            'margin-top': '0'
+                        });
+                    }
+                    if(style.legend.inPo == 'bottom') {
+                        $(v +' .charts-zhu-col .c-legend').css({
+                            'top': 'auto',
+                            'bottom': parseInt($(v +' .charts-zhu-col').css('padding-bottom')) + 10 + 'px',
+                            'margin-top': '0'
+                        });
+                    }
+                }
+            }else if(style.legend.po == 'left') {
+                $(v +' .charts-zhu-col .c-legend').css({
+                    'right': '100%',
+                    'left': 'auto',
+                    'top': '50%',
+                    'bottom': 'auto',
+                    'width': 'auto',
+                    'margin-top': '-' + $(v +' .charts-zhu-col .c-legend').outerHeight() + 'px'
+                });
+                $(v +' .charts-zhu-col .c-legend .c-legend-item').css({
+                    'display': 'block'
+                });
+                $(v).css({
+                    'padding-left': $(v +' .charts-zhu-col .c-legend').outerWidth() + 'px'
+                });
+                if(style.legend.in){
+                    $(v +' .charts-zhu-col .c-legend').addClass('in').css({
+                        'right': 'auto',
+                        'left': parseInt($(v +' .charts-zhu-col').css('padding-left')) + 10 + 'px',
+                    });
+                    $(v).css({
+                        'padding': '0'
+                    });
+                    if(style.legend.inPo == 'top') {
+                        $(v +' .charts-zhu-col .c-legend').css({
+                            'top': '10px',
+                            'margin-top': '0'
+                        });
+                    }
+                    if(style.legend.inPo == 'bottom') {
+                        $(v +' .charts-zhu-col .c-legend').css({
+                            'top': 'auto',
+                            'bottom': parseInt($(v +' .charts-zhu-col').css('padding-bottom')) + 10 + 'px',
+                            'margin-top': '0'
+                        });
+                    }
+                }
+            }else {
+                $(v +' .charts-zhu-col .c-legend').css({
+                    'top': '100%',
+                    'bottom': 'auto',
+                    'left': '0',
+                    'right': 'auto'
+                });
+                $(v).css({
+                    'padding-bottom': $(v +' .charts-zhu-col .c-legend').outerHeight() + 'px'
+                });
+                if(style.legend.in){
+                    $(v +' .charts-zhu-col .c-legend').addClass('in').css({
+                        'top': 'auto',
+                        'bottom': parseInt($(v +' .charts-zhu-col').css('padding-bottom')) + 10 + 'px',
+                    });
+                    $(v).css({
+                        'padding': '0'
+                    });
+                }
+            }
+            if(style.legend.in) {
+                if(style.legend.inBgColor) {
+                    $(v +' .charts-zhu-col .c-legend').css({
+                        'background': style.legend.inBgColor
+                    });
+                }
+                if(style.legend.inBorderWidth) {
+                    $(v +' .charts-zhu-col .c-legend').css({
+                        'border-width': style.legend.inBorderWidth
+                    });
+                }
+                if(style.legend.inBorderColor) {
+                    $(v +' .charts-zhu-col .c-legend').css({
+                        'border-color': style.legend.inBorderColor
+                    });
+                }
+            }
+            if(style.legend.color) {
+                $(v +' .charts-zhu-col .c-legend').css({
+                    'color': style.legend.color
+                });
+            }
+        }
         let outerW = $(v +' .charts-zhu-col').width();
         if(xLabel.length){
             let bootomLen = xLabel.length;

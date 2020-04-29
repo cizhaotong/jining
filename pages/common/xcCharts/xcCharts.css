@@ -32,6 +32,11 @@ table{border-collapse: collapse;border-spacing: 0;}
 .charts-zhu-col .c-right .c-tip.show{opacity: 1;}
 .charts-zhu-col .c-right .c-tip .c-tip-text-row{padding-left: 10px;position: relative;}
 .charts-zhu-col .c-right .c-tip .c-tip-text-row b{display: block;width: 6px;height: 6px;border-radius: 50%;background: #5EA1E7;position: absolute;left: 0;top: 50%;margin-top: -3px;}
+.charts-zhu-col .c-legend{width: 100%;line-height: 18px;position: absolute;text-align: center;padding: 8px 0;display: none;pointer-events: none;z-index: 10;}
+.charts-zhu-col .c-legend .c-legend-item{display: inline-block;line-height: inherit;position: relative;padding-left: 28px;margin: 0 10px;word-break: keep-all;white-space: nowrap;text-align: left;}
+.charts-zhu-col .c-legend .c-legend-item b{display: block;width: 20px;height: 8px;position: absolute;left: 0;top: 50%;margin-top: -4px;border-radius: 4px;}
+.charts-zhu-col .c-legend.show{display: block;}
+.charts-zhu-col .c-legend.in{border-radius: 2px;border: 1px solid #999;background: #fff;color: #333;}
 
 .charts-zhu-col .c-bottom{width: calc(100% - 3em);height: 2em;line-height: 2em;position: absolute;right: 0;bottom: 0;}
 .charts-zhu-col .c-bottom span{float: left;text-align: center;}

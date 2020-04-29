@@ -82,12 +82,17 @@ function zhuCol(){
         name: '样例二',
         data: [100,200,333,156,678,589, 100,200,550,233,678,685]
     },{
-        name: '样例三',
+        name: '样例三样例三',
         data: [678,685,156,678, 876,200,200,550,145, 333,589, 100]
     }];
     let style2 = {
         maxNum: 1000,
-        unit: '个'
+        unit: '个',
+        legend: {
+            po: 'left',
+            in: true,
+            inPo: 'top',
+        }
     };
     let xLabel2 = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
     $c.charts.zhuCol('zhu2', datas2, xLabel2, style2);
