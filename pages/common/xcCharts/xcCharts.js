@@ -172,7 +172,7 @@ $c.charts.areaSpline = function(v, datas, xLabels, style) {
  * @params v: 绑定元素id , 必须
  * @params datas: 数据列表 , 可选
  * */
-$c.charts.map = function(v, datas) {
+$c.charts.map = function(v, datas, clickItem) {
     datas = datas || [];
     let mapSize = [617, 565];
     let outerW = $('#' + v).width();
@@ -292,6 +292,7 @@ $c.charts.map = function(v, datas) {
     mapStr += '     </svg>';
     mapStr += ' </div>';
     mapStr += ' <img class="c-map-high" />';
+    mapStr += ' <img class="c-map-high-click" />';
     mapStr += ' <div class="c-tip">';
     mapStr += '       <div class="c-tip-til"></div>';
     mapStr += '       <div class="c-tip-con"></div>';
@@ -310,6 +311,23 @@ $c.charts.map = function(v, datas) {
     },function(){
         $('#' + v + ' .charts-map .c-map-high').removeAttr('src').removeClass('show');
     });
+    if(clickItem) {
+        $('#' + v + ' .charts-map .c-map-hover').append('<a class="c-map-click-all" href="javascript:void(0)">全区</a>');
+        $('#' + v + ' .charts-map .c-map-hover .hover-area, #' + v + ' .charts-map .c-map-points .c-map-point i').click(function(){
+            let id = $(this).attr('value');
+            for(let i in mapPoints){
+                if(id == mapPoints[i].id) {
+                    $('#' + v + ' .charts-map .c-map-high-click').attr('src', mapPoints[i].high).addClass('click');
+                    break;
+                }
+            }
+            clickItem(id);
+        });
+        $('#' + v + ' .charts-map .c-map-hover .c-map-click-all').click(function(){
+            $('#' + v + ' .charts-map .c-map-high-click').removeAttr('src').removeClass('click');
+            clickItem('all');
+        });
+    }
     let hideTime;
     $('#' + v + ' .charts-map .c-map-points .c-map-point i').hover(function(){
         let id = $(this).attr('value');

@@ -21,7 +21,9 @@ function map(){
             desc: '特人非常V型'
         }
     }];
-    $c.charts.map('map', datas);
+    $c.charts.map('map', datas, function(id){
+        console.log(id)
+    });
 }
 /**
  * 圆环进度条

@@ -57,6 +57,7 @@ table{border-collapse: collapse;border-spacing: 0;}
     100%{transform: scale(1)}
 }
 .charts-map .c-map-hover{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 4;}
+.charts-map .c-map-hover .c-map-click-all{display: block;width: 46px;height: 22px;line-height: 22px;background: #FD6969;color: #fff;text-align: center;text-decoration: none;position: absolute;left: 0;top: 0;font-size: 12px;border-radius: 2px;}
 
 .charts-map .c-tip{display: block;position: absolute;left: 0;top: 0;background: rgba(255,255,255,0.8);z-index: 88;padding: 10px;border: 1px solid #5EA1E7;border-radius: 3px;color: #333!important;pointer-events: none;opacity: 0;max-width: 50%;}
 .charts-map .c-tip .c-tip-til{font-size: 12px;}
@@ -68,3 +69,5 @@ table{border-collapse: collapse;border-spacing: 0;}
 
 .charts-map .c-map-high{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 2;border: 0;opacity: 0;}
 .charts-map .c-map-high.show{opacity: 1;}
+.charts-map .c-map-high-click{display: block;width: 100%;height: 100%;position: absolute;left: 0;top: 0;z-index: 2;border: 0;opacity: 0;}
+.charts-map .c-map-high-click.click{opacity: 1;}
